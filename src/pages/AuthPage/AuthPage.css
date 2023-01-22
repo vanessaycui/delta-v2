@@ -1,0 +1,13 @@
+.AuthPage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+}
+
+.AuthPage .auth-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
