@@ -3,7 +3,7 @@ import * as dashboardsAPI from '../../utilities/dashboards-api.js';
 
 import "./CreateDashboardForm.css"
 
-export default function CreateDashboardForm({setShowNewDashForm}) {
+export default function CreateDashboardForm({setShowNewDashForm, dashboardList, setDashboardList}) {
     const [newDashboard, setNewDashboard] = useState({
         title:""
     })
@@ -19,11 +19,15 @@ export default function CreateDashboardForm({setShowNewDashForm}) {
         setShowNewDashForm(false) //hide dash form and show create new dash button after submitting form
         try {
             const dashboard = await dashboardsAPI.createDashboard(newDashboard);
-            console.log(dashboard)
-
+            setDashboardList([...dashboardList, dashboard])
         } catch {
             setError('Create New Dashboard Failed - Try Again');
         }
+    }
+
+    function handleCancel(evt){
+      evt.preventDefault();
+      setShowNewDashForm(false)
     }
 
   return (
@@ -33,6 +37,7 @@ export default function CreateDashboardForm({setShowNewDashForm}) {
           <label>New Dashboard Title</label>
           <input type="text" name="title" value={newDashboard.title} onChange={handleChange} required />
           <button className="btn" type="submit">Done</button>
+          <button className="btn" onClick={handleCancel}>cancel</button>
           <p className="error-message">&nbsp;{error}</p>
         </form>
       </div>

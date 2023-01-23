@@ -31,8 +31,6 @@ export default function DashboardList({user, setUser, showSideNav,handleLogoClic
     }
     showDashboard()
   }
-
-
     
     return (
       <div className="DashboardList">

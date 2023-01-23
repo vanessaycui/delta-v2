@@ -13,4 +13,30 @@
     border-radius: 10px;
 }
 
+.dashboard-box{
+    height: 100px;
+    width: 100px;
+    background-color: aqua;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin: 5px;
+}
+
+.dashboard-box:hover{
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.dashboard-container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 50vw;
+    max-height: 60vh;
+    overflow-y: scroll;
+}
+
 
