@@ -1,0 +1,19 @@
+.DashboardTable table{
+    min-width: 600px;
+    height: 60vh;
+    margin: 0 auto;
+  }
+
+.DashboardTable{
+  display:flex;
+  width: auto;
+  margin: 0 auto;
+}
+
+
+.cat-income-form{
+  min-width: 150px;
+  height: 60vh;
+  background-color: red;
+
+}

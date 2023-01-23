@@ -12,10 +12,7 @@ import "./App.css";
 
 export default function App() {
   const [user, setUser] = useState(getUser());
-  
-
-
-
+  const [currentDashboard, setCurrentDashboard] = useState({});
   
   return (
     <main className="App">
@@ -28,10 +25,8 @@ export default function App() {
                 <Dashboard
                   user={user}
                   setUser={setUser}
-                  // currentDashboard={currentDashboard}
-                  // setCurrentDashboard={setCurrentDashboard}
-                  // dashboardList={dashboardList}
-                  // setDashboardList={setDashboardList}
+                  currentDashboard={currentDashboard}
+                  setCurrentDashboard={setCurrentDashboard}
                 />
               }
            />
@@ -41,7 +36,7 @@ export default function App() {
                 <EntryPage
                   user={user}
                   setUser={setUser}
-                  // currentDashboard={currentDashboard}
+                  currentDashboard={currentDashboard}                  
                 />
               }
             />

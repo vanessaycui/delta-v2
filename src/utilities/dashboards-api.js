@@ -6,10 +6,6 @@ export function getAll(){
     return sendRequest(BASE_URL)
 }
 
-// export function getByAdminId(admin_id) { //get function
-//     return sendRequest(`${BASE_URL}/${admin_id}`);
-// }
-
 export function getDashboard(dash_id) { //get function
     return sendRequest(`${BASE_URL}/${dash_id}`);
 }

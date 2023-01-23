@@ -3,6 +3,7 @@ import * as dashboardsAPI from "../../utilities/dashboards-api";
 
 import SideNavBar from "../../components/SideNavBar/SideNavBar";
 import NavBar from "../../components/NavBar/NavBar";
+import DashboardTable from "../../components/DashboardTable/DashboardTable"
 
 import "./Dashboard.css";
 
@@ -10,46 +11,37 @@ export default function Dashboard({
   user,
   setUser, //logout functionality in side nav
   
-  // currentDashboard,
-  // setCurrentDashboard,
+  currentDashboard,
+  setCurrentDashboard,
 
-  // dashboardList,
-  // setDashboardList
 }) {
   const [showSideNav, setShowSideNav] = useState(false);
-  const [dashboardData, setDashboardData] = useState({}); //show function
+  // const [dashboardData, setDashboardData] = useState({});
   const [dashboardList, setDashboardList] = useState([]); //index function
-  const [currentDashboard, setCurrentDashboard] = useState({});
+
 
   useEffect(function () {
     //initial retrieval of all dashboards, and set current dash upon load
     async function getallDash() {
       const allDash = await dashboardsAPI.getAll(user._id)
+      // const data = await dashboardsAPI.getDashboard(allDash[0]._id)
       setDashboardList(allDash);
       setCurrentDashboard(allDash[0]); //assumes you have a dash already.
-    }
-
-    async function getCurrentDash(){
-      const data = await dashboardsAPI.getDashboard(currentDashboard._id)
-      setDashboardData(data)
-      console.log(dashboardData)
-
+      // setDashboardData(data)
     }
     //we initialize dashboard list and current dashboard
     getallDash()
-    getCurrentDash()
 
   }, []);
 
 
-  useEffect(()=>{ //inital retrieval of dashboard data
-    async function getCurrentDash(){
-      const data = await dashboardsAPI.getDashboard(currentDashboard._id)
-      setDashboardData(data)
-    }
-    getCurrentDash()
-    console.log(dashboardData)
-  },[currentDashboard])
+  // useEffect(()=>{ //inital retrieval of dashboard data
+  //   async function getCurrentDash(){
+  //     const data = await dashboardsAPI.getDashboard(currentDashboard._id)
+  //     setDashboardData(data)
+  //   }
+  //   getCurrentDash()
+  // },[currentDashboard])
 
   function handleLogoClick() {
     //toggles showing sideNav
@@ -61,15 +53,11 @@ export default function Dashboard({
     async function showDashboard() {
       const currDashboard = await dashboardsAPI.getDashboard(evt.target.id);
       setCurrentDashboard(currDashboard.dashboard);
-      setDashboardData(currDashboard);
+      // setDashboardData(currDashboard);
     }
     showDashboard();
     setShowSideNav(false);
-    
-  
   }
-
- 
 
   return (
     <div className="Dashboard">
@@ -88,6 +76,13 @@ export default function Dashboard({
         dashboardList={dashboardList}
         setDashboardList={setDashboardList}
       />
+
+      <div className="dash-chart">
+        chart
+        
+      </div>
+
+      <DashboardTable currentDashboard={currentDashboard}/>
     </div>
   );
 }

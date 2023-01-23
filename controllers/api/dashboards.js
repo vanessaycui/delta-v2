@@ -26,13 +26,6 @@ async function index(req, res) {
   res.status(200).json(dashboards);
 }
 
-// async function showDefault(req,res){
-//   //add an option to make a dashboard default to be true.
-//   const dashboard = await Dashboard.find({admin: req.params.adminId}).populate("admin")
-//   //we shall call the actual show function after we get the dashboard id from this.
-//   res.status(200).json(dashboard)
-// }
-
 function show(req, res) {
   //getting dates
   const date = new Date();
