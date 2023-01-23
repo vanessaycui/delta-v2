@@ -16,6 +16,7 @@ export default function SignUpForm({ setUser }) {
       const formData = { ...registration };
       delete formData.error;
       delete formData.confirm;
+
       const user = await signUp(formData);
       setUser(user);
     } catch {
@@ -24,13 +25,11 @@ export default function SignUpForm({ setUser }) {
   }
 
   function handleChange(event) {
-    setRegistration({
+    setRegistration({...registration,
       [event.target.name]: event.target.value,
       error: "",
     });
   }
-
-  const disable = registration.password !== registration.confirm;
 
   return (
     <div>
@@ -68,7 +67,11 @@ export default function SignUpForm({ setUser }) {
             onChange={handleChange}
             required
           />
-          <button type="submit" disabled={disable}>
+          <button
+            className="btn"
+            type="submit"
+            // disabled={registration.password !== registration.confirm}
+          >
             SIGN UP
           </button>
         </form>

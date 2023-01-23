@@ -1,13 +1,25 @@
 .AuthPage{
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     height: 70vh;
+    width: 80vw;
+    margin: 7%;
 }
 
 .AuthPage .auth-form{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-width: 50vw;
 }
 
+
+.app-logo{
+    max-width: 500px;
+}
+
+.app-logo p{
+    font-size: 0.6rem;
+}

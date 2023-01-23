@@ -11,3 +11,30 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.form-container form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn{
+  border: none;
+  background-color: transparent;
+  border: 1px solid #eeeeee;
+  padding: 5px 10px;
+  transition: 0.3s
+}
+
+.btn:hover{
+  border: 1px solid black;
+  cursor: pointer;
+  font-style: italic;
+  border-radius: 10px;
+  transition: 0.3s
+}
+
+.logo{
+  font-size: 3rem;
+}

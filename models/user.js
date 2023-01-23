@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 
 
-const SALT_ROUNDS = 6;  // 6 is a reasonable value
+const SALT_ROUNDS = 6;  // choose a value between 5 and 10.
 
 const userSchema = new Schema({
     name: {type: String, required: true},
@@ -31,7 +31,6 @@ const userSchema = new Schema({
         }
     }
 )
-
 
 userSchema.pre('save', async function(next) {
   // 'this' is the user doc

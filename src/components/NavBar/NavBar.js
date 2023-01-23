@@ -1,19 +1,18 @@
 import {Link} from 'react-router-dom'
-import * as userService from '../../utilities/users-service'
 
-export default function NavBar(props) {
-  function handleLogout(){
-    userService.logout()
-    props.setUser(null)
-  }
+import "./NavBar.css"
+export default function NavBar({type, handleLogoClick, name, linkName, link}) {
+
     return (
       <nav className="NavBar">
-        <Link to="/order"> Order History </Link>
-        &nbsp; | &nbsp;
-        <Link to="/orders/new"> New Order </Link>
-        &nbsp;&nbsp;
-        Welcome, {props.username}
-        <Link to="" onClick={handleLogout}> Logout </Link>
+        {type=="dash-list"?<></> : <button className="btn logo" onClick={handleLogoClick}>Δ</button>}
+       
+        {name}
+
+
+        {type==""}<Link to={link}> {linkName}</Link>
+
+
       </nav>
     );
   }
