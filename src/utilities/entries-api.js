@@ -13,3 +13,7 @@ const BASE_URL= '/api'
 export function createEntry(dashId, entryData){ //not used yet
     return sendRequest(`${BASE_URL}/dashboards/${dashId}/entries`, 'POST', entryData)
 }
+
+export function getRow(dashId, queryInfo){
+    return sendRequest(`${BASE_URL}/dashboards/${dashId}/entries/categories`, 'POST', queryInfo)
+}

@@ -4,6 +4,7 @@ var entriesCtrl = require('../../controllers/api/entries')
 const ensureLoggedIn = require('../../config/ensureLoggedIn');
 
 router.post('/dashboards/:id/entries', ensureLoggedIn, entriesCtrl.create)
+router.post('/dashboards/:id/entries/categories', ensureLoggedIn, entriesCtrl.getRow)
 // router.delete('/entries/:eId/categories/:cId',ensureLoggedIn, entriesCtrl.deleteCat)
 // router.delete('/entries/:eId/incomes/:iId',ensureLoggedIn, entriesCtrl.deleteIncome)
 // router.put('/entries/:eId/categories/:cId',ensureLoggedIn,entriesCtrl.updateCat)

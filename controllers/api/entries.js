@@ -1,6 +1,16 @@
 const Entry = require('../../models/entry')
+const Dashboard = require('../../models/dashboard'
+)
+
+//get date info
+const date = new Date();
+const nextMonthDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+const currentMonthDate = new Date(date.getFullYear(), date.getMonth(), 0);
+const prevMonthDate = new Date(date.getFullYear(), date.getMonth() - 1, 0);
+
 module.exports = {
   create: createEntry,
+  getRow
   // deleteCat: deleteCategoryEntry,
   // deleteIncome: deleteIncomeEntry,
   // updateCat: updateCategoryEntry,
@@ -14,6 +24,21 @@ async function createEntry(req, res){
   await entry.save()
   
   res.status(200).json("new entry created")    
+}
+
+async function getRow(req, res){
+  console.log(req.body)
+  let dashboard = await Dashboard.findById(req.params.id)
+  //get prev month entries
+  let entries = await Entry.find({category: req.body.name, dashboard: dashboard})
+  console.log(entries)
+
+  //get current month entries
+  //get percent change
+
+  res.status(200).json(entries)
+
+
 }
 
 // function deleteCategoryEntry(req,res){
