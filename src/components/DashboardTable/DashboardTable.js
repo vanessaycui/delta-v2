@@ -7,11 +7,13 @@ import CategoryList from "../CategoryList/CategoryList"
 import IncomeList from "../IncomeList/IncomeList"
 import "./DashboardTable.css";
 
-export default function DashboardTable({ currentDashboard }) {
+export default function DashboardTable({ currentDashboard, setCurrentDashboard}) {
     //toggles cat and income form 
     const [catForm, setCatForm]=useState(false)
     const [incomeForm, setIncomeForm]=useState(false)
     const [error, setError] = useState('');
+    //keeping track of categories and incomes
+
 
     //data for new category/new income
     const [catInput, setCatInput]=useState({
@@ -34,14 +36,16 @@ export default function DashboardTable({ currentDashboard }) {
         evt.preventDefault()
         if (evt.target.name==="new-cat-form"){
             try {
-                const category = await categoriesAPI.createCategory(currentDashboard._id, catInput);
+                const dashboard = await categoriesAPI.createCategory(currentDashboard._id, catInput);
+                setCurrentDashboard(dashboard) //new set of categories to be rendered.
             } catch {
                 setError('Create New Category Failed - Try Again');
             }
 
         } else if (evt.target.name==="new-income-form"){
             try {
-                const income = await incomesAPI.createIncome(currentDashboard._id, incomeInput);
+                const dashboard = await incomesAPI.createIncome(currentDashboard._id, incomeInput);
+                setCurrentDashboard(dashboard) //new set of incomes to be rendered
             } catch {
                 setError('Create New Category Failed - Try Again');
             }
@@ -68,11 +72,6 @@ export default function DashboardTable({ currentDashboard }) {
             setIncomeForm(false)
         }
       }
-
-
-
-
-
 
 
 
@@ -108,12 +107,11 @@ export default function DashboardTable({ currentDashboard }) {
           <tr>
             <td>Categories <button name="category" onClick={handleAddCatIncome}>add</button></td>
             <td>Prev. Month Total</td>
-            <td>Overall Monthly Avg.</td>
             <td>% Change</td>
             <td>Current Month</td>
           </tr>
         </thead>
-        {currentDashboard.categories ? <CategoryList categories={currentDashboard.categories} dashId={currentDashboard.id} />:<></> }
+        {currentDashboard.categories ? <CategoryList currentDashboard={currentDashboard} />:<></> }
         <tbody>
         <tr>
             <td>Incomes <button name="income" onClick={handleAddCatIncome}>add</button></td>
@@ -123,7 +121,7 @@ export default function DashboardTable({ currentDashboard }) {
             <td> </td>
           </tr>
           </tbody>
-        {currentDashboard.incomes ? <IncomeList incomes={currentDashboard.incomes} dashId={currentDashboard.id}/>:<></>}
+        {currentDashboard.incomes ? <IncomeList currentDashboard={currentDashboard}/>:<></>}
       </table>
       <div className="cat-income-form">
 

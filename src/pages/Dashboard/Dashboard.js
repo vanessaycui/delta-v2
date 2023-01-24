@@ -11,14 +11,12 @@ export default function Dashboard({
   user,
   setUser, //logout functionality in side nav
   
-  currentDashboard,
-  setCurrentDashboard,
-
 
 }) {
   const [showSideNav, setShowSideNav] = useState(false);
   // const [dashboardData, setDashboardData] = useState({});
   const [dashboardList, setDashboardList] = useState([]); //index function
+  const [currentDashboard, setCurrentDashboard] = useState({});
 
 
   useEffect(function () {
@@ -53,7 +51,7 @@ export default function Dashboard({
     //handles when dashboard selected from sidenav, sets current dash, gets dash data
     async function showDashboard() {
       const currDashboard = await dashboardsAPI.getDashboard(evt.target.id);
-      setCurrentDashboard(currDashboard.dashboard);
+      setCurrentDashboard(currDashboard);
       // setDashboardData(currDashboard);
     }
     showDashboard();
@@ -83,7 +81,7 @@ export default function Dashboard({
         
       </div>
 
-      <DashboardTable currentDashboard={currentDashboard}/>
+      <DashboardTable currentDashboard={currentDashboard} setCurrentDashboard={setCurrentDashboard}/>
     </div>
   );
 }

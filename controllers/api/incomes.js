@@ -25,7 +25,7 @@ async function createIncome(req, res){
     let dashboard = await Dashboard.findById(req.params.id)
     dashboard.incomes.push(req.body)
     dashboard.save()
-    res.status(200).json("New Income Created")
+    res.status(200).json(dashboard)
 }
 
 // function deleteIncome(req, res){

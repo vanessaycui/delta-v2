@@ -24,7 +24,7 @@ async function createCategory(req, res){
     let dashboard = await Dashboard.findById(req.params.id)
     dashboard.categories.push(req.body)
     dashboard.save()
-    res.status(200).json('new category added')
+    res.status(200).json(dashboard)
 }
 
 // function deleteCategory(req,res){
