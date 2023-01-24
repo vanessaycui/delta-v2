@@ -18,11 +18,13 @@ export default function DashboardTable({
 }) {
   //set form type for entry and toggle entry form
   const [formType, setFormType] = useState();
+  
 
   //toggles category and income form
   const [catForm, setCatForm] = useState(false);
   const [incomeForm, setIncomeForm] = useState(false);
   const [error, setError] = useState("");
+
 
   //data for new category/new income
   const [catInput, setCatInput] = useState({
