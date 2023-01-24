@@ -17,3 +17,7 @@ export function createDashboard(dashboardData){
 export function deleteDashboard(dashId){
     return sendRequest(`${BASE_URL}/${dashId}`, 'DELETE')
 }
+
+export function updateDashboard(dashId, formData){
+    return sendRequest(`${BASE_URL}/${dashId}`, 'PUT', formData)
+}
