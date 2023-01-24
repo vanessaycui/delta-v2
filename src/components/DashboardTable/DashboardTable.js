@@ -132,9 +132,9 @@ export default function DashboardTable({ currentDashboard, setCurrentDashboard})
       <button name="incomeEntry" onClick={changeEntryType}>Add Income</button>
       <button name="categoryEntry" onClick={changeEntryType}>Add Cost</button>
       <div className="table-forms">
+        {Object.keys(currentDashboard).length ==0 ? <></>:
         <EntryForm currentDashboard={currentDashboard} formType={formType} showEntryForm={showEntryForm} setShowEntryForm={setShowEntryForm}/>
-
-
+            }
       </div>
     </div>
   );
