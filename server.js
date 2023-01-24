@@ -32,9 +32,12 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.use(require("./config/checkToken"))
 
 // Put API routes here, before the "catch all" route
+app.use('/api', require('./routes/api/entries'))
+app.use('/api', require('./routes/api/categories'))
+app.use('/api', require('./routes/api/incomes'))
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/dashboards', require('./routes/api/dashboards'));
-app.use('/api/entries', require('./routes/api/entries'));
+
 
 // The following "catch all" route (note the *) is necessary
 // to return the index.html on all non-AJAX requests

@@ -1,40 +1,108 @@
 import { useState, useEffect } from "react";
 
-import * as dashboardsAPI from "../../utilities/dashboards-api";
+import * as categoriesAPI from "../../utilities/categories-api";
+import * as incomesAPI from "../../utilities/incomes-api"
+
 import CategoryList from "../CategoryList/CategoryList"
 import IncomeList from "../IncomeList/IncomeList"
-
 import "./DashboardTable.css";
 
 export default function DashboardTable({ currentDashboard }) {
     //toggles cat and income form 
     const [catForm, setCatForm]=useState(false)
     const [incomeForm, setIncomeForm]=useState(false)
+    const [error, setError] = useState('');
 
+    //data for new category/new income
+    const [catInput, setCatInput]=useState({
+        name:"", //match schema
+    })
+    const [incomeInput, setIncomeInput]=useState({
+        incomeType:"",//match schema
+    })
+
+    //handles form and submit for new income and category
+    function handleChange(evt){
+        if (evt.target.name==="category-input"){
+            setCatInput({name:evt.target.value})
+        } else if (evt.target.name==="income-input"){
+            setIncomeInput({incomeType:evt.target.value})
+        }        
+    }
+
+    async function handleSubmit(evt){
+        evt.preventDefault()
+        if (evt.target.name==="new-cat-form"){
+            try {
+                const category = await categoriesAPI.createCategory(currentDashboard._id, catInput);
+            } catch {
+                setError('Create New Category Failed - Try Again');
+            }
+
+        } else if (evt.target.name==="new-income-form"){
+            try {
+                const income = await incomesAPI.createIncome(currentDashboard._id, incomeInput);
+            } catch {
+                setError('Create New Category Failed - Try Again');
+            }
+        }
+    }
+
+    //toggles cat and income form
     function handleAddCatIncome(evt){
         if (evt.target.name==="category"){
             let formstatus=catForm
             setCatForm(!formstatus)
 
-
         } else if(evt.target.name==="income"){
             let formstatus=incomeForm
             setIncomeForm(!formstatus)
-
         }
     }
+
+    function handleCancel(evt){
+        evt.preventDefault();
+        if (evt.target.name === "cat-cancel"){
+            setCatForm(false)
+        } else if (evt.target.name==="income-cancel"){
+            setIncomeForm(false)
+        }
+      }
+
+
+
+
+
 
 
 
   return (
     <div className="DashboardTable">
         <div className="cat-income-form">
-            {catForm? <p>catform</p>:<></>}
-            {incomeForm? <p>incomeform</p>:<></>}
+            {catForm?(
+                <>
+                    <form name="new-cat-form"autoComplete="off" onSubmit={handleSubmit}>
+                        <label>New Category:</label>
+                        <input name="category-input" value={catInput.category} onChange={handleChange}></input>
+                        <button type="submit">add</button>
+                        <button name="cat-cancel"className="btn" onClick={handleCancel}>x</button>
+                    </form>
+                    <p>{error}</p>
+                </>
 
-
+            ):<></>}
+            {incomeForm? (
+                <>
+                    <form name="new-income-form" autoComplete="off" onSubmit={handleSubmit}>
+                        <label>New Income:</label>
+                        <input name="income-input"value={incomeInput.income} onChange={handleChange}></input>
+                        <button type="submit">add</button>
+                        <button name="income-cancel"className="btn" onClick={handleCancel}>x</button>
+                    </form>
+                    <p>{error}</p>
+                </>
+            ):<></>}
         </div>
-
       <table>
         <thead>
           <tr>

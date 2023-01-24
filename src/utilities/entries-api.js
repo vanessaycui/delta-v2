@@ -1,6 +1,6 @@
 import sendRequest from './send-request'
 
-const BASE_URL= '/api/entries'
+const BASE_URL= '/api'
 
 export function getAll(){//not used yet
     return sendRequest(BASE_URL)
