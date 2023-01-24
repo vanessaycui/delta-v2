@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 
 import * as categoriesAPI from "../../utilities/categories-api";
 import * as incomesAPI from "../../utilities/incomes-api"
+import * as entriesAPI from "../../utilities/entries-api"
 
 import EntryForm from "../EntryForm/EntryForm"
 import CategoryList from "../CategoryList/CategoryList"
 import IncomeList from "../IncomeList/IncomeList"
+import TableFooter from "../TableFooter/TableFooter"
 import "./DashboardTable.css";
 
 export default function DashboardTable({ currentDashboard, setCurrentDashboard}) {
@@ -25,6 +27,8 @@ export default function DashboardTable({ currentDashboard, setCurrentDashboard})
     const [incomeInput, setIncomeInput]=useState({
         incomeType:"",//match schema
     })
+
+    
 
     //handles form and submit for new income and category
     function handleChange(evt){
@@ -124,36 +128,10 @@ export default function DashboardTable({ currentDashboard, setCurrentDashboard})
             <td> -- </td>
             <td> -- </td>
             <td> -- </td>
-            <td> -- </td>
           </tr>
           </tbody>
         {currentDashboard.incomes ? <IncomeList currentDashboard={currentDashboard}/>:<></>}
-        <tfoot>
-        <tr>
-       
-            <td>Expense Total:</td>
-            <td>?</td>
-            <td>?</td>
-            <td>?</td>
-            <td>?</td>
-        </tr>
-        <tr>
-
-            <td>Income Total:</td>
-            <td>?</td>
-            <td>?</td>
-            <td>?</td>
-            <td>?</td>
-        </tr>
-        <tr>
-         
-            <td>Net Savings:</td>
-            <td>?</td>
-            <td>?</td>
-            <td>?</td>
-            <td>?</td>
-        </tr>
-        </tfoot>
+        <TableFooter currentDashboard={currentDashboard}/>
       </table>
       <div>
         <button name="incomeEntry" onClick={changeEntryType}>Add Income</button>
