@@ -3,17 +3,20 @@ import { useState, useEffect } from "react";
 import * as categoriesAPI from "../../utilities/categories-api";
 import * as incomesAPI from "../../utilities/incomes-api"
 
+import EntryForm from "../EntryForm/EntryForm"
 import CategoryList from "../CategoryList/CategoryList"
 import IncomeList from "../IncomeList/IncomeList"
 import "./DashboardTable.css";
 
 export default function DashboardTable({ currentDashboard, setCurrentDashboard}) {
+    //set form type for entry
+    const [formType, setFormType]=useState()
+    const [showEntryForm, setShowEntryForm] = useState(false)
+
     //toggles cat and income form 
     const [catForm, setCatForm]=useState(false)
     const [incomeForm, setIncomeForm]=useState(false)
     const [error, setError] = useState('');
-    //keeping track of categories and incomes
-
 
     //data for new category/new income
     const [catInput, setCatInput]=useState({
@@ -64,6 +67,11 @@ export default function DashboardTable({ currentDashboard, setCurrentDashboard})
         }
     }
 
+    function changeEntryType(evt){
+        setFormType(evt.target.name)
+        setShowEntryForm(true)
+    }
+
     function handleCancel(evt){
         evt.preventDefault();
         if (evt.target.name === "cat-cancel"){
@@ -73,11 +81,9 @@ export default function DashboardTable({ currentDashboard, setCurrentDashboard})
         }
       }
 
-
-
   return (
     <div className="DashboardTable">
-        <div className="cat-income-form">
+        <div className="table-forms">
             {catForm?(
                 <>
                     <form name="new-cat-form"autoComplete="off" onSubmit={handleSubmit}>
@@ -115,15 +121,19 @@ export default function DashboardTable({ currentDashboard, setCurrentDashboard})
         <tbody>
         <tr>
             <td>Incomes <button name="income" onClick={handleAddCatIncome}>add</button></td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
+            <td> -- </td>
+            <td> -- </td>
+            <td> -- </td>
+            <td> -- </td>
           </tr>
           </tbody>
         {currentDashboard.incomes ? <IncomeList currentDashboard={currentDashboard}/>:<></>}
       </table>
-      <div className="cat-income-form">
+      <button name="incomeEntry" onClick={changeEntryType}>Add Income</button>
+      <button name="categoryEntry" onClick={changeEntryType}>Add Cost</button>
+      <div className="table-forms">
+        <EntryForm currentDashboard={currentDashboard} formType={formType} showEntryForm={showEntryForm} setShowEntryForm={setShowEntryForm}/>
+
 
       </div>
     </div>
