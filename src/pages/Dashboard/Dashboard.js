@@ -10,22 +10,27 @@ import "./Dashboard.css";
 export default function Dashboard({
   user,
   setUser, //logout functionality in side nav
+  dashboardList,
+  setDashboardList,
+  currentDashboard,
+  setCurrentDashboard
 }) {
 
   const [showEntries, setShowEntries]=useState(false)
   const [showDashSettings, setDashSettings]=useState(false)
   const [showSideNav, setShowSideNav] = useState(false);
-  const [dashboardList, setDashboardList] = useState([]); //index function
-  const [currentDashboard, setCurrentDashboard] = useState({});
 
-  useEffect(function () { //get all dashboard and set curr dash
+
+  useEffect(function () {//get all dashboard and set curr dash
     async function getallDash() {
       const allDash = await dashboardsAPI.getAll(user._id)
       setDashboardList(allDash);
       setCurrentDashboard(allDash[0]); 
-    }
+    } 
     getallDash()
-  }, [user]);
+  }, []);
+
+  
 
   function handleLogoClick() { //toggle side navigation
     showSideNav ? setShowSideNav(false) : setShowSideNav(true);
@@ -50,7 +55,7 @@ export default function Dashboard({
 
   return (
     <div className="Dashboard">
-      {showDashSettings? <DashSettings handleSettingsClick={handleSettingsClick} currentDashboard={currentDashboard} setCurrentDashboard={setCurrentDashboard}/>:(<>
+      {showDashSettings? <DashSettings handleSettingsClick={handleSettingsClick} currentDashboard={currentDashboard} setCurrentDashboard={setCurrentDashboard} dashboardList={dashboardList} setDashboardList={setDashboardList}/>:(<>
 
       <NavBar
         handleLogoClick={handleLogoClick}

@@ -1,11 +1,16 @@
+
+
 import * as dashboardsAPI from "../../utilities/dashboards-api";
 
 import "./DashSettings.css"
 
-export default function DashSettings({currentDashboard, setCurrentDashboard, handleSettingsClick}) {
+export default function DashSettings({currentDashboard, setCurrentDashboard, setDashboardList, dashboardList, handleSettingsClick}) {
 
-    function handleDashDelete(){
-
+    async function handleDashDelete(){
+        let dashboardList = await dashboardsAPI.deleteDashboard(currentDashboard._id)
+        setCurrentDashboard(dashboardList[0])
+        setDashboardList(dashboardList)
+        handleSettingsClick()
     }
 
     return (
@@ -24,14 +29,16 @@ export default function DashSettings({currentDashboard, setCurrentDashboard, han
                     <button>Edit</button>
                 </form>
             </div>
+            {dashboardList.length >1? (<>
             <div>
                 <p>I want to delete this dashboard </p>
             </div>
             <div className="form">
-
                 <button onClick={handleDashDelete}>Delete</button>
-
             </div>
+            </>
+            ):
+            <></>}
             <div></div>
             <div className="form"><button onClick={handleSettingsClick}>Cancel</button></div>
       </div>

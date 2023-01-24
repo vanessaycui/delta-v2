@@ -10,6 +10,8 @@ import "./App.css";
 
 export default function App() {
   const [user, setUser] = useState(getUser());
+    const [dashboardList, setDashboardList] = useState([]); //index function
+  const [currentDashboard, setCurrentDashboard] = useState({});
 
 
   return (
@@ -23,6 +25,10 @@ export default function App() {
                 <Dashboard
                   user={user}
                   setUser={setUser}
+                  dashboardList={dashboardList}
+                  setDashboardList={setDashboardList}
+                  currentDashboard={currentDashboard}
+                  setCurrentDashboard={setCurrentDashboard}
                 />
               }
            />

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import * as userService from "../../utilities/users-service";
-import * as dashboardsAPI from "../../utilities/dashboards-api";
 
 import CreateDashboardForm from "../CreateDashboardForm/CreateDashboardForm";
 import "./SideNavBar.css";

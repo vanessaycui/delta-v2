@@ -325,11 +325,25 @@ async function show(req, res) {
 
 }
 
-async function deleteDashboard(req, res) {
-  let dashboard = await Dashboard.findById(req.params.id)
- await Entries.deleteMany({dashboard:dashboard._id})
-  dashboard.remove()
-  res.status(200).json("dashboard successfully deleted")
+function deleteDashboard(req, res) {
+  Dashboard.findById(req.params.id).exec(function(err, dashboard){
+    Entry.deleteMany({dashboard:dashboard}).then(()=>{
+      dashboard.remove().then(()=>{
+        Dashboard.find({admin: req.user._id }).populate(
+          "admin"
+        ).exec(function(err, results){
+          console.log(results)
+          res.status(200).json(results);
+  
+        });
+        
+      })
+
+      })
+      
+
+
+  })
 }
 
 // function update(req, res) {
