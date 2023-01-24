@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as entriesAPI from "../../utilities/entries-api";
 
 import "./EntryForm.css";
@@ -10,12 +10,12 @@ export default function EntryForm({
   setShowEntryForm,
   showEntryForm,
 }) {
+  //can draw category info later
+  const today = new Date();
 
-   //can draw category info later
-   const today = new Date();
 
   const [newCategoryEntry, setNewCategoryEntry] = useState({
-    category: "",
+    category:"",
     company: "",
     date: today.toISOString().slice(0, 10),
     cost: 0,
@@ -23,7 +23,7 @@ export default function EntryForm({
   });
 
   const [newIncomeEntry, setIncomeEntry] = useState({
-    incomeType: "",
+    incomeType:"",
     company: "",
     date: today.toISOString().slice(0, 10),
     income: 0,
@@ -31,28 +31,22 @@ export default function EntryForm({
   });
   const [error, setError] = useState("");
 
- 
-
-  //initialize form select options
-  const categoriesList=0;
-  const incomesList=0;
-
   //generate select options if there are categories or incomes
-  if (currentDashboard.categoriesList){
-    categoriesList = currentDashboard.categories.map((category, idx) => (
-      <option key={idx} value={category.name}>
-        {category.name}
-      </option>
-    ));
-  }
 
-  if (currentDashboard.incomesList){
-    incomesList = currentDashboard.incomes.map((income, idx) => (
-      <option key={idx} value={income.incomeType}>
-        {income.incomeType}
-      </option>
-    ));
-  }
+  
+  let categoriesList = currentDashboard.categories.map((category, idx) => (
+    <option key={idx} value={category.name}>
+      {category.name}
+    </option>
+  ));
+  
+
+  let incomesList = currentDashboard.incomes.map((income, idx) => (
+    <option key={idx} value={income.incomeType}>
+      {income.incomeType}
+    </option>
+  ));
+  
 
   function handleCatChange(evt) {
     setNewCategoryEntry({
@@ -113,7 +107,7 @@ export default function EntryForm({
                 onChange={handleCatChange}
                 required
               >
-                {categoriesList}
+                {categoriesList? categoriesList: <></>}
               </select>
               <label>Company</label>
               <input
@@ -168,7 +162,7 @@ export default function EntryForm({
                 onChange={handleIncomeChange}
                 required
               >
-                {incomesList}
+                {incomesList? incomesList: <></>}
               </select>
               <label>Company</label>
               <input
