@@ -24,7 +24,7 @@ export default function EntryForm({
   ));
 
   const [newCategoryEntry, setNewCategoryEntry] = useState({
-    category: "",
+    category: currentDashboard.categories[0].name,
     company: "",
     date: today.toISOString().slice(0, 10),
     cost: 0,
@@ -32,7 +32,7 @@ export default function EntryForm({
   });
 
   const [newIncomeEntry, setIncomeEntry] = useState({
-    incomeType: "",
+    incomeType: currentDashboard.incomes[0].incomeType,
     company: "",
     date: today.toISOString().slice(0, 10),
     income: 0,

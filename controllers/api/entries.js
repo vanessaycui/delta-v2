@@ -33,6 +33,8 @@ async function getRowCategory(req, res) {
     category: req.body.name,
     dashboard: dashboard,
   });
+
+  console.log(entries)
   let rowData = { prevMonth: 0, currMonth: 0, change: 0 };
 
   //calc data for a row in table.
@@ -57,7 +59,6 @@ async function getRowCategory(req, res) {
   if (prevMonthSum === 0) {
     perChange = "-";
   }
-
   rowData = {
     prevMonth: prevMonthSum.toFixed(2),
     currMonth: currMonthSum.toFixed(2),
