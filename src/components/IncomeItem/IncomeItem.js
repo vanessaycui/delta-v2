@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import * as entriesAPI from "../../utilities/entries-api";
 
-export default function IncomeItem({dashId, income}) {
+export default function IncomeItem({currentDashboard, income}) {
   const [rowInfo, setRowInfo] = useState({})
 
   useEffect(() => {
     async function getRowInfo() {
-      let info = await entriesAPI.getRowIncome(dashId, income)
+      let info = await entriesAPI.getRowIncome(currentDashboard._id, income)
       setRowInfo(info)
     }
     getRowInfo()
-  },[]);
+  },[currentDashboard]);
     
 
   return (

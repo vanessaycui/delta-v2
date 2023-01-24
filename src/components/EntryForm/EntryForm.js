@@ -5,26 +5,17 @@ import "./EntryForm.css";
 
 export default function EntryForm({
   currentDashboard,
+  setCurrentDashboard,
   formType,
   setShowEntryForm,
   showEntryForm,
 }) {
-  //can draw category info later
-  const today = new Date();
 
-  const categoriesList = currentDashboard.categories.map((category, idx) => (
-    <option key={idx} value={category.name}>
-      {category.name}
-    </option>
-  ));
-  const incomesList = currentDashboard.incomes.map((income, idx) => (
-    <option key={idx} value={income.incomeType}>
-      {income.incomeType}
-    </option>
-  ));
+   //can draw category info later
+   const today = new Date();
 
   const [newCategoryEntry, setNewCategoryEntry] = useState({
-    category: currentDashboard.categories[0].name,
+    category: "",
     company: "",
     date: today.toISOString().slice(0, 10),
     cost: 0,
@@ -32,13 +23,36 @@ export default function EntryForm({
   });
 
   const [newIncomeEntry, setIncomeEntry] = useState({
-    incomeType: currentDashboard.incomes[0].incomeType,
+    incomeType: "",
     company: "",
     date: today.toISOString().slice(0, 10),
     income: 0,
     comment: "",
   });
   const [error, setError] = useState("");
+
+ 
+
+  //initialize form select options
+  const categoriesList=0;
+  const incomesList=0;
+
+  //generate select options if there are categories or incomes
+  if (currentDashboard.categoriesList){
+    categoriesList = currentDashboard.categories.map((category, idx) => (
+      <option key={idx} value={category.name}>
+        {category.name}
+      </option>
+    ));
+  }
+
+  if (currentDashboard.incomesList){
+    incomesList = currentDashboard.incomes.map((income, idx) => (
+      <option key={idx} value={income.incomeType}>
+        {income.incomeType}
+      </option>
+    ));
+  }
 
   function handleCatChange(evt) {
     setNewCategoryEntry({
@@ -58,7 +72,7 @@ export default function EntryForm({
           currentDashboard._id,
           newIncomeEntry
         );
-        console.log(dashboard);
+        setCurrentDashboard(dashboard);
       } catch {
         setError("Create New Entry Failed - Try Again");
       }
@@ -68,12 +82,12 @@ export default function EntryForm({
           currentDashboard._id,
           newCategoryEntry
         );
-        console.log(dashboard);
+        setCurrentDashboard(dashboard);
       } catch {
         setError("Create New Entry Failed - Try Again");
       }
     }
-    setShowEntryForm(false)
+    setShowEntryForm(false);
   }
 
   function handleCancel(evt) {

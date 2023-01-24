@@ -1,16 +1,4 @@
-import { useState, useEffect } from "react";
-import * as entriesAPI from "../../utilities/entries-api";
-
-export default function TableFooter({ currentDashboard }) {
-  const [summaryData, setSummaryData] = useState({});
-
-  useEffect(() => {
-    async function getSummaryData() {
-      let summaryTotals = await entriesAPI.getSummary(currentDashboard._id);
-      setSummaryData(summaryTotals);
-    }
-    getSummaryData();
-  }, [currentDashboard]);
+export default function TableFooter({ summaryData }) {
 
   return (
 

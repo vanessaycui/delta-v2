@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import * as entriesAPI from "../../utilities/entries-api";
 
-export default function CategoryItem({ dashId, category }) {
+export default function CategoryItem({ currentDashboard, category }) {
   const [rowInfo, setRowInfo] = useState({})
 
   useEffect(() => {
     async function getRowInfo() {
-      let info = await entriesAPI.getRowCategory(dashId, category)
+      let info = await entriesAPI.getRowCategory(currentDashboard._id, category)
       setRowInfo(info)
     }
     getRowInfo()
-  },[]);
+  },[currentDashboard]);
 
   return (
     <tr>

@@ -21,9 +21,9 @@ module.exports = {
 async function createEntry(req, res) {
   req.body.dashboard = req.params.id;
   let entry = new Entry(req.body);
-  await entry.save();
-
-  res.status(200).json("new entry created");
+  entry.save();
+  let dashboard = await Dashboard.findById(req.params.id);
+  res.status(200).json(dashboard);
 }
 
 async function getRowCategory(req, res) {
@@ -33,8 +33,6 @@ async function getRowCategory(req, res) {
     category: req.body.name,
     dashboard: dashboard,
   });
-
-  console.log(entries)
   let rowData = { prevMonth: 0, currMonth: 0, change: 0 };
 
   //calc data for a row in table.
@@ -148,7 +146,6 @@ async function getSummary(req, res) {
     }, 0).toFixed(2);
     
   } 
-
   //Current Month Summary, gotta filter whether income or cost exists in entry.
   let currMonthEntriesIncome = entries.filter(
     (entry) => entry.date >= currentMonthDate && entry.date < nextMonthDate && entry.income
@@ -157,7 +154,6 @@ async function getSummary(req, res) {
   let currMonthEntriesExpense = entries.filter(
     (entry) => entry.date >= currentMonthDate && entry.date < nextMonthDate && entry.cost
   );
- 
   //calculations.
   if (currMonthEntriesIncome.length>0){
     summaryData.currMonth.incomeTotal = currMonthEntriesIncome.reduce(function (total, entry) {
@@ -170,7 +166,6 @@ async function getSummary(req, res) {
       return total + entry.cost;
     }, 0).toFixed(2);
   }
-
   //Summary Totals
   summaryData.currMonth.netSavings = (summaryData.currMonth.incomeTotal  - summaryData.currMonth.expenseTotal).toFixed(2)
   summaryData.prevMonth.netSavings = (summaryData.prevMonth.incomeTotal  - summaryData.prevMonth.expenseTotal).toFixed(2)

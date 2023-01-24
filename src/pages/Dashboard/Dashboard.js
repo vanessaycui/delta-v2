@@ -10,29 +10,20 @@ import "./Dashboard.css";
 export default function Dashboard({
   user,
   setUser, //logout functionality in side nav
-  
-
 }) {
+
   const [showSideNav, setShowSideNav] = useState(false);
-  // const [dashboardData, setDashboardData] = useState({});
   const [dashboardList, setDashboardList] = useState([]); //index function
   const [currentDashboard, setCurrentDashboard] = useState({});
 
-
-  useEffect(function () {
-    //initial retrieval of all dashboards, and set current dash upon load
+  useEffect(function () { //get all dashboard and set curr dash
     async function getallDash() {
       const allDash = await dashboardsAPI.getAll(user._id)
-      // const data = await dashboardsAPI.getDashboard(allDash[0]._id)
       setDashboardList(allDash);
-      setCurrentDashboard(allDash[0]); //assumes you have a dash already.
-      // setDashboardData(data)
+      setCurrentDashboard(allDash[0]); 
     }
-    //we initialize dashboard list and current dashboard
     getallDash()
-
-  }, []);
-
+  }, [user]);
 
   // useEffect(()=>{ //inital retrieval of dashboard data
   //   async function getCurrentDash(){
@@ -42,17 +33,14 @@ export default function Dashboard({
   //   getCurrentDash()
   // },[currentDashboard])
 
-  function handleLogoClick() {
-    //toggles showing sideNav
+  function handleLogoClick() { //toggle side navigation
     showSideNav ? setShowSideNav(false) : setShowSideNav(true);
   }
 
-  function handleDashClick(evt) {
-    //handles when dashboard selected from sidenav, sets current dash, gets dash data
+  function handleDashClick(evt) { //handle dashboard selection
     async function showDashboard() {
       const currDashboard = await dashboardsAPI.getDashboard(evt.target.id);
       setCurrentDashboard(currDashboard);
-      // setDashboardData(currDashboard);
     }
     showDashboard();
     setShowSideNav(false);
@@ -62,7 +50,7 @@ export default function Dashboard({
     <div className="Dashboard">
       <NavBar
         handleLogoClick={handleLogoClick}
-        name={currentDashboard.title}
+        name={currentDashboard && currentDashboard.title}
         linkName={"All Entries"}
         link={"/entries"}
       />
@@ -81,7 +69,7 @@ export default function Dashboard({
         
       </div>
 
-      <DashboardTable currentDashboard={currentDashboard} setCurrentDashboard={setCurrentDashboard}/>
+      {Object.keys(currentDashboard).length ===0 ? <></>: <DashboardTable currentDashboard={currentDashboard} setCurrentDashboard={setCurrentDashboard}/>}
     </div>
   );
 }

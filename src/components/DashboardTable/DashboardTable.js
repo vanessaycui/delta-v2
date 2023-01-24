@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 
 import * as categoriesAPI from "../../utilities/categories-api";
 import * as incomesAPI from "../../utilities/incomes-api"
-import * as entriesAPI from "../../utilities/entries-api"
+import * as entriesAPI from "../../utilities/entries-api";
+
 
 import EntryForm from "../EntryForm/EntryForm"
 import CategoryList from "../CategoryList/CategoryList"
@@ -11,11 +12,11 @@ import TableFooter from "../TableFooter/TableFooter"
 import "./DashboardTable.css";
 
 export default function DashboardTable({ currentDashboard, setCurrentDashboard}) {
-    //set form type for entry
+    //set form type for entry and toggle entry form
     const [formType, setFormType]=useState()
     const [showEntryForm, setShowEntryForm] = useState(false)
 
-    //toggles cat and income form 
+    //toggles category and income form 
     const [catForm, setCatForm]=useState(false)
     const [incomeForm, setIncomeForm]=useState(false)
     const [error, setError] = useState('');
@@ -27,8 +28,17 @@ export default function DashboardTable({ currentDashboard, setCurrentDashboard})
     const [incomeInput, setIncomeInput]=useState({
         incomeType:"",//match schema
     })
+    const [summaryData, setSummaryData] = useState({});
 
-    
+    useEffect(() => {
+        async function getSummaryData() {
+            if (currentDashboard){
+                let summaryTotals = await entriesAPI.getSummary(currentDashboard._id);
+                setSummaryData(summaryTotals);
+            }
+        }
+        getSummaryData();
+      }, [currentDashboard]);
 
     //handles form and submit for new income and category
     function handleChange(evt){
@@ -131,16 +141,16 @@ export default function DashboardTable({ currentDashboard, setCurrentDashboard})
           </tr>
           </tbody>
         {currentDashboard.incomes ? <IncomeList currentDashboard={currentDashboard}/>:<></>}
-        <TableFooter currentDashboard={currentDashboard}/>
+        <TableFooter summaryData={summaryData}/>
       </table>
       <div>
-        <button name="incomeEntry" onClick={changeEntryType}>Add Income</button>
-        <button name="categoryEntry" onClick={changeEntryType}>Add Cost</button>
+        {currentDashboard.categories? ( currentDashboard.categories.length>0? <button name="categoryEntry" onClick={changeEntryType}>Add Cost</button>:<></> ): <></>}
+        {currentDashboard.incomes? ( currentDashboard.incomes.length>0?<button name="incomeEntry" onClick={changeEntryType}>Add Income</button>:<></>):<></>}
       </div>
       <div className="table-forms">
-        {Object.keys(currentDashboard).length ==0 ? <></>:
-        <EntryForm currentDashboard={currentDashboard} formType={formType} showEntryForm={showEntryForm} setShowEntryForm={setShowEntryForm}/>
-            }
+        {Object.keys(currentDashboard).length ===0 ? <></>:
+        <EntryForm currentDashboard={currentDashboard} setCurrentDashboard={setCurrentDashboard} formType={formType} showEntryForm={showEntryForm} setShowEntryForm={setShowEntryForm}/>
+        }
       </div>
     </div>
   );
