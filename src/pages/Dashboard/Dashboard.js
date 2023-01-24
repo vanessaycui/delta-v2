@@ -3,8 +3,8 @@ import * as dashboardsAPI from "../../utilities/dashboards-api";
 
 import SideNavBar from "../../components/SideNavBar/SideNavBar";
 import NavBar from "../../components/NavBar/NavBar";
+import DashSettings from "../../components/DashSettings/DashSettings";
 import DashboardTable from "../../components/DashboardTable/DashboardTable"
-
 import "./Dashboard.css";
 
 export default function Dashboard({
@@ -12,6 +12,8 @@ export default function Dashboard({
   setUser, //logout functionality in side nav
 }) {
 
+  const [showEntries, setShowEntries]=useState(false)
+  const [showDashSettings, setDashSettings]=useState(false)
   const [showSideNav, setShowSideNav] = useState(false);
   const [dashboardList, setDashboardList] = useState([]); //index function
   const [currentDashboard, setCurrentDashboard] = useState({});
@@ -24,14 +26,6 @@ export default function Dashboard({
     }
     getallDash()
   }, [user]);
-
-  // useEffect(()=>{ //inital retrieval of dashboard data
-  //   async function getCurrentDash(){
-  //     const data = await dashboardsAPI.getDashboard(currentDashboard._id)
-  //     setDashboardData(data)
-  //   }
-  //   getCurrentDash()
-  // },[currentDashboard])
 
   function handleLogoClick() { //toggle side navigation
     showSideNav ? setShowSideNav(false) : setShowSideNav(true);
@@ -46,15 +40,25 @@ export default function Dashboard({
     setShowSideNav(false);
   }
 
+  function handleSettingsClick(){
+    showDashSettings ? setDashSettings(false) : setDashSettings(true);
+  }
+
+  function handleEntriesClick(){
+    showEntries ? setShowEntries(false) : setShowEntries(true);
+  }
+
   return (
     <div className="Dashboard">
+      {showDashSettings? <DashSettings handleSettingsClick={handleSettingsClick} currentDashboard={currentDashboard} setCurrentDashboard={setCurrentDashboard}/>:(<>
+
       <NavBar
         handleLogoClick={handleLogoClick}
+        handleSettingsClick={handleSettingsClick}
+        handleEntriesClick={handleEntriesClick}
         name={currentDashboard && currentDashboard.title}
         linkName={"All Entries"}
-        link={"/entries"}
       />
-
       <SideNavBar
         user={user}
         setUser={setUser}
@@ -63,13 +67,12 @@ export default function Dashboard({
         dashboardList={dashboardList}
         setDashboardList={setDashboardList}
       />
-
+      
       <div className="dash-chart">
         chart
-        
       </div>
-
       {Object.keys(currentDashboard).length ===0 ? <></>: <DashboardTable currentDashboard={currentDashboard} setCurrentDashboard={setCurrentDashboard}/>}
+      </>)}
     </div>
   );
 }

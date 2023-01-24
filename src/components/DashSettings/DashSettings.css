@@ -1,0 +1,16 @@
+.DashSettings{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 600px;
+    margin: 0 auto;
+
+}
+.DashSettings div{
+    display:flex;
+    align-items: center;
+}
+
+.form{
+    justify-content: flex-end;
+
+}

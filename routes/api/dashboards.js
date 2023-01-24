@@ -7,7 +7,7 @@ const ensureLoggedIn = require('../../config/ensureLoggedIn');
 router.get('/', ensureLoggedIn, dashboardsCtrl.index);
 router.get('/:id', ensureLoggedIn, dashboardsCtrl.show)
 // router.get('/:adminId', ensureLoggedIn, dashboardsCtrl.showDefault)
-// router.delete('/:id', ensureLoggedIn, dashboardsCtrl.delete)
+router.delete('/:id', ensureLoggedIn, dashboardsCtrl.delete)
 // router.put('/:id', ensureLoggedIn, dashboardsCtrl.update)
 router.post('/', ensureLoggedIn, dashboardsCtrl.create)
 

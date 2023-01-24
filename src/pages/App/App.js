@@ -1,12 +1,10 @@
-import { useState, useEffect } from "react";
-import { Routes, Route, Navigate, useParams } from "react-router-dom";
+import { useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { getUser } from "../../utilities/users-service";
-import * as dashboardsAPI from "../../utilities/dashboards-api";
+
 
 import AuthPage from "../AuthPage/AuthPage";
 import Dashboard from "../Dashboard/Dashboard";
-import EntryPage from "../EntryPage/EntryPage";
-
 import "./App.css";
 
 
@@ -28,15 +26,6 @@ export default function App() {
                 />
               }
            />
-            <Route
-              path="/entries"
-              element={
-                <EntryPage
-                  user={user}
-                  setUser={setUser}       
-                />
-              }
-            />
             <Route path="/*" element={<Navigate to="/dashboards"></Navigate>} />
           </Routes>
         </>

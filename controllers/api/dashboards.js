@@ -7,7 +7,7 @@ module.exports = {
   create: createDashboard,
   show,
   // showDefault,
-  // delete: deleteDashboard,
+  delete: deleteDashboard,
   // update,
 };
 
@@ -325,16 +325,12 @@ async function show(req, res) {
 
 }
 
-// function deleteDashboard(req, res) {
-//   Dashboard.findById(req.params.id).exec(function (err, dashboard) {
-//     Entry.deleteMany({dashboard: dashboard.id}).exec(function(err){
-//       dashboard.remove();
-//       dashboard.save(function (err) {
-//         res.redirect("/dashboards");
-//       });
-//     });
-//   });
-// }
+async function deleteDashboard(req, res) {
+  let dashboard = await Dashboard.findById(req.params.id)
+ await Entries.deleteMany({dashboard:dashboard._id})
+  dashboard.remove()
+  res.status(200).json("dashboard successfully deleted")
+}
 
 // function update(req, res) {
 //   Dashboard.findById(req.params.id).exec(function (err, dashboard) {

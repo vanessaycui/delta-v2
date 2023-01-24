@@ -6,10 +6,14 @@ export function getAll(){
     return sendRequest(BASE_URL)
 }
 
-export function getDashboard(dash_id) { //get function
-    return sendRequest(`${BASE_URL}/${dash_id}`);
+export function getDashboard(dashId) { //get function
+    return sendRequest(`${BASE_URL}/${dashId}`);
 }
 
 export function createDashboard(dashboardData){
     return sendRequest(`${BASE_URL}`, 'POST', dashboardData)
+}
+
+export function deleteDashboard(dashId){
+    return sendRequest(`${BASE_URL}/${dashId}`, 'DELETE')
 }
