@@ -1,19 +1,24 @@
 import { useEffect, useState } from "react";
 
-import * as dashboardsAPI from "../../utilities/dashboards-api"
-import * as incomesAPI from "../../utilities/incomes-api"
-import * as categoriesAPI from "../../utilities/categories-api"
+import * as dashboardsAPI from "../../utilities/dashboards-api";
+import * as incomesAPI from "../../utilities/incomes-api";
+import * as categoriesAPI from "../../utilities/categories-api";
 import * as entriesAPI from "../../utilities/entries-api";
+
 import EntryItem from "../EntryItem/EntryItem";
 import EntryGroup from "../EntryGroup/EntryGroup";
-
+import EditEntryForm from "../EditEntryForm/EditEntryForm";
 import "./Entries.css";
 
 export default function Entries({ currentDashboard, setCurrentDashboard }) {
   const [entryType, setEntryType] = useState("income"); //income or category
   const [entryGroup, setEntryGroup] = useState(""); // a selected group of entries under income or category
   const [entryList, setEntryList] = useState([]); //full entry list under selected group, retrieved from BE
-  const [selectedEntry, setSelectedEntry] = useState(null); //selected entry
+  const [editItemData, setEditItemData] = useState({
+    type: null,
+    data: "",
+  }); //identifies what item is selected for edit (income/category group or entry)
+  const [showEditForms, setShowEditForms]=useState(false)
 
   let entryGroups = []; //gets populated based on whether income or category button has been clicked
   if (entryType === "income") {
@@ -21,6 +26,7 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
       <EntryGroup
         handleEntryGroupSelection={handleEntryGroupSelection}
         handleEntryGroupDelete={handleEntryGroupDelete}
+        handleEntryEdit={handleEntryEdit}
         entryType={entryType}
         key={idx}
         entryData={income}
@@ -32,6 +38,7 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
       <EntryGroup
         handleEntryGroupSelection={handleEntryGroupSelection}
         handleEntryGroupDelete={handleEntryGroupDelete}
+        handleEntryEdit={handleEntryEdit}
         entryType={entryType}
         key={idx}
         entryData={category}
@@ -43,6 +50,7 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
   function handleClick(evt) {
     //switches income and category type
     setEntryType(evt.target.name);
+    setShowEditForms(false)
   }
 
   async function handleEntryGroupSelection(evt) {
@@ -56,14 +64,23 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
   }
 
   async function handleEntryGroupDelete(groupId) {
-    if (entryType === "income"){
-        await incomesAPI.deleteIncome(currentDashboard._id, groupId)
-    } else if (entryType ==="category"){
-        await categoriesAPI.deleteCategory(currentDashboard._id, groupId)
+    if (entryType === "income") {
+      await incomesAPI.deleteIncome(currentDashboard._id, groupId);
+    } else if (entryType === "category") {
+      await categoriesAPI.deleteCategory(currentDashboard._id, groupId);
     }
-    let currentDash = await dashboardsAPI.getDashboard(currentDashboard._id)
-    setCurrentDashboard(currentDash)
+    let currentDash = await dashboardsAPI.getDashboard(currentDashboard._id);
+    setCurrentDashboard(currentDash);
   }
+
+  //set-up state and data needed to generate proper form
+  function handleEntryEdit(type, data) {
+    setEditItemData({ type: type, data: data });
+    setShowEditForms(true)
+  }
+
+  //handle updating income/category group names + handle updating entry info.
+  function handleEntryUpdate() {} 
 
   async function handleDeletedEntry(entryId) {
     //triggered by deleting an entry item
@@ -83,6 +100,7 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
     displayedEntries = entryList.map((entry, idx) => (
       <EntryItem
         handleDeletedEntry={handleDeletedEntry}
+        handleEntryEdit={handleEntryEdit}
         entryType={entryType}
         key={idx}
         entry={entry}
@@ -124,7 +142,18 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
         </div>
         <div className="form-section">
           <div className="entry-header">form section</div>
-          <div>forms</div>
+          <div>
+            {showEditForms ? (
+              <EditEntryForm
+                editItemData={editItemData}
+                currentDashboard={currentDashboard}
+                handleEntryUpdate={handleEntryUpdate}
+                setShowEditForms={setShowEditForms}
+              />
+            ) : (
+              <></>
+            )}
+          </div>
         </div>
       </div>
     </>

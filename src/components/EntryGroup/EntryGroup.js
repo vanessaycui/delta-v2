@@ -4,7 +4,8 @@ export default function EntryGroup({
   entryType,
   entryData,
   handleEntryGroupSelection,
-  handleEntryGroupDelete
+  handleEntryGroupDelete,
+  handleEntryEdit
 }) {
   return (
     <>
@@ -13,7 +14,7 @@ export default function EntryGroup({
           {entryType === "income" ? entryData.incomeType : entryData.name}
         </div>
         <div>
-          <button>edit</button>
+          <button onClick={()=>{handleEntryEdit(entryType, entryData)}}>edit</button>
           <button onClick={()=>{handleEntryGroupDelete(entryData._id)}}>delete</button>
         </div>
       </div>

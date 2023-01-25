@@ -22,7 +22,7 @@ export default function EntryForm({
     comment: "",
   });
 
-  const [newIncomeEntry, setIncomeEntry] = useState({
+  const [newIncomeEntry, setNewIncomeEntry] = useState({
     incomeType:"",
     company: "",
     date: today.toISOString().slice(0, 10),
@@ -56,7 +56,7 @@ export default function EntryForm({
   }
 
   function handleIncomeChange(evt) {
-    setIncomeEntry({ ...newIncomeEntry, [evt.target.name]: evt.target.value });
+    setNewIncomeEntry({ ...newIncomeEntry, [evt.target.name]: evt.target.value });
   }
   async function handleEntrySubmit(evt) {
     evt.preventDefault();

@@ -4,12 +4,7 @@ import * as entriesAPI from "../../utilities/entries-api";
 
 import "./EntryItem.css";
 
-export default function EntryItem({ handleDeletedEntry, entryType, entry}) {
-
-
-  function handleEditEntryForm(){
-
-  }
+export default function EntryItem({ handleDeletedEntry, entryType, entry, handleEntryEdit}) {
 
 
   return (
@@ -43,7 +38,7 @@ export default function EntryItem({ handleDeletedEntry, entryType, entry}) {
             </tr>
             </tbody>
           </table>
-          <button> edit </button> 
+          <button onClick={()=>{handleEntryEdit(`entry-${entryType}`, entry)}}> edit </button> 
           
           <button onClick={()=>{handleDeletedEntry(entry._id)}}>delete</button>
 
