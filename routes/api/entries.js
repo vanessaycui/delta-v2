@@ -7,6 +7,8 @@ router.get('/dashboards/:id/entries/summary',ensureLoggedIn, entriesCtrl.getSumm
 router.post('/dashboards/:id/entries', ensureLoggedIn, entriesCtrl.create)
 router.post('/dashboards/:id/entries/categories', ensureLoggedIn, entriesCtrl.getRowCategory)
 router.post('/dashboards/:id/entries/incomes', ensureLoggedIn, entriesCtrl.getRowIncome)
+router.post('/dashboards/:id/entries/filtered', ensureLoggedIn, entriesCtrl.getFilteredEntries)
+router.delete('/dashboards/:dId/entries/:eId', ensureLoggedIn, entriesCtrl.delete)
 
 // router.delete('/entries/:eId/categories/:cId',ensureLoggedIn, entriesCtrl.deleteCat)
 // router.delete('/entries/:eId/incomes/:iId',ensureLoggedIn, entriesCtrl.deleteIncome)

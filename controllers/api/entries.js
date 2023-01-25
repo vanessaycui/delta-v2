@@ -12,11 +12,25 @@ module.exports = {
   getRowCategory,
   getRowIncome,
   getSummary,
-  // deleteCat: deleteCategoryEntry,
-  // deleteIncome: deleteIncomeEntry,
+  getFilteredEntries,
+  delete:deleteEntry
   // updateCat: updateCategoryEntry,
   // updateIncome: updateIncomeEntry
 };
+
+function deleteEntry(req,res){
+  Entry.findById(req.params.eId).exec(function(err,entry){
+    entry.remove()
+    Dashboard.findById(req.params.dId).exec(function(err, dashboard){
+      res.status(200).json(dashboard)
+    })
+    
+  })
+
+  //retrieve currentdashboard to refresh
+  //keep page 
+  
+}
 
 async function createEntry(req, res) {
   req.body.dashboard = req.params.id;
@@ -172,6 +186,22 @@ async function getSummary(req, res) {
 
 
   res.status(200).json(summaryData);
+}
+
+async function getFilteredEntries(req,res){
+
+  let entries = await Entry.find({dashboard:req.params.id})
+  let sortedEntries;
+
+  if (req.body.income){
+    sortedEntries = entries.filter(entry=> entry.incomeType === req.body.income)
+
+  } else if (req.body.category){
+    sortedEntries = entries.filter(entry=> entry.category === req.body.category)
+  }
+
+  res.status(200).json(sortedEntries)
+
 }
 
 // function deleteCategoryEntry(req,res){
