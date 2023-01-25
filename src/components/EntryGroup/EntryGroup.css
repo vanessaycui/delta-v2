@@ -1,0 +1,15 @@
+.EntryGroup{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px;
+    min-height: 50px;
+    border: 2px solid black;
+}
+
+.EntryGroup:hover{
+    cursor: pointer;
+    border: none;
+
+}

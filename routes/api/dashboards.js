@@ -9,4 +9,5 @@ router.delete('/:id', ensureLoggedIn, dashboardsCtrl.delete)
 router.put('/:id', ensureLoggedIn, dashboardsCtrl.update)
 router.post('/', ensureLoggedIn, dashboardsCtrl.create)
 
+
 module.exports = router;

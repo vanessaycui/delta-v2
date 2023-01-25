@@ -4,7 +4,7 @@ import * as entriesAPI from "../../utilities/entries-api";
 
 import "./EntryItem.css";
 
-export default function EntryItem({ handleDeletedEntry, currentDashboard, entryType, entry}) {
+export default function EntryItem({ handleDeletedEntry, entryType, entry}) {
 
 
   function handleEditEntryForm(){

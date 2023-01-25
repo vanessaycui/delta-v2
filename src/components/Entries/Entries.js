@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 
+import * as dashboardsAPI from "../../utilities/dashboards-api"
+import * as incomesAPI from "../../utilities/incomes-api"
+import * as categoriesAPI from "../../utilities/categories-api"
 import * as entriesAPI from "../../utilities/entries-api";
 import EntryItem from "../EntryItem/EntryItem";
+import EntryGroup from "../EntryGroup/EntryGroup";
 
 import "./Entries.css";
 
@@ -11,34 +15,29 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
   const [entryList, setEntryList] = useState([]); //full entry list under selected group, retrieved from BE
   const [selectedEntry, setSelectedEntry] = useState(null); //selected entry
 
-
-  let sources = []; //gets populated based on whether income or category button has been clicked
+  let entryGroups = []; //gets populated based on whether income or category button has been clicked
   if (entryType === "income") {
     let incomes = currentDashboard.incomes.map((income, idx) => (
-      <div className="list-item">
-        <div key={idx} name={income.incomeType} onClick={handleEntrySelection}>
-          {income.incomeType}
-        </div>
-        <div>
-          <button>edit</button>
-          <button>delete</button>
-        </div>
-      </div>
+      <EntryGroup
+        handleEntryGroupSelection={handleEntryGroupSelection}
+        handleEntryGroupDelete={handleEntryGroupDelete}
+        entryType={entryType}
+        key={idx}
+        entryData={income}
+      />
     ));
-    sources = [...incomes];
+    entryGroups = [...incomes];
   } else if (entryType === "category") {
     let categories = currentDashboard.categories.map((category, idx) => (
-      <div className="list-item">
-        <div key={idx} name={category.name} onClick={handleEntrySelection}>
-          {category.name}
-        </div>
-        <div>
-          <button>edit</button>
-          <button>delete</button>
-        </div>
-      </div>
+      <EntryGroup
+        handleEntryGroupSelection={handleEntryGroupSelection}
+        handleEntryGroupDelete={handleEntryGroupDelete}
+        entryType={entryType}
+        key={idx}
+        entryData={category}
+      />
     ));
-    sources = [...categories];
+    entryGroups = [...categories];
   }
 
   function handleClick(evt) {
@@ -46,9 +45,9 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
     setEntryType(evt.target.name);
   }
 
-  async function handleEntrySelection(evt) {
+  async function handleEntryGroupSelection(evt) {
+    //when a group is selected, retrieve assoc. entries from BE
     setEntryGroup(evt.target.textContent);
-
     let filteredEntries = await entriesAPI.getFilteredEntries(
       currentDashboard._id,
       { [entryType]: evt.target.textContent }
@@ -56,15 +55,26 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
     setEntryList(filteredEntries);
   }
 
-  async function handleDeletedEntry(entryId) { //triggered by entryItem
-    console.log("entry deleted");
-    await entriesAPI.deleteEntry(currentDashboard._id, entryId)
+  async function handleEntryGroupDelete(groupId) {
+    if (entryType === "income"){
+        await incomesAPI.deleteIncome(currentDashboard._id, groupId)
+    } else if (entryType ==="category"){
+        await categoriesAPI.deleteCategory(currentDashboard._id, groupId)
+    }
+    let currentDash = await dashboardsAPI.getDashboard(currentDashboard._id)
+    setCurrentDashboard(currentDash)
+  }
 
+  async function handleDeletedEntry(entryId) {
+    //triggered by deleting an entry item
+    console.log("entry deleted");
+    await entriesAPI.deleteEntry(currentDashboard._id, entryId);
+    //refresh list of entries
     let filteredEntries = await entriesAPI.getFilteredEntries(
-        currentDashboard._id,
-        { [entryType]: entryGroup }
-      );
-      setEntryList(filteredEntries);
+      currentDashboard._id,
+      { [entryType]: entryGroup }
+    );
+    setEntryList(filteredEntries);
   }
 
   let displayedEntries = [];
@@ -73,7 +83,6 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
     displayedEntries = entryList.map((entry, idx) => (
       <EntryItem
         handleDeletedEntry={handleDeletedEntry}
-        currentDashboard={currentDashboard}
         entryType={entryType}
         key={idx}
         entry={entry}
@@ -97,7 +106,7 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
               </button>
             </div>
           </div>
-          <div className="income-cat-list">{sources}</div>
+          <div className="income-cat-list">{entryGroups}</div>
         </div>
         <div>
           <div className="entry-header">

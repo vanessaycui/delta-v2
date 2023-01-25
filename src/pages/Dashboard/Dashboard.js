@@ -54,6 +54,7 @@ export default function Dashboard({
 
   function handleEntriesClick() {
     showEntries ? setShowEntries(false) : setShowEntries(true);
+    setShowSideNav(false)
   }
 
   function handleBackClick(){

@@ -4,7 +4,7 @@ const Entry = require('../../models/entry')
 module.exports = {
     // show,
     create: createIncome,
-    // delete: deleteIncome,
+    delete: deleteIncome,
     // update
 };
 
@@ -28,22 +28,22 @@ async function createIncome(req, res){
     res.status(200).json(dashboard)
 }
 
-// function deleteIncome(req, res){
-//     Dashboard.findById(req.params.dId, function(err, dashboard){
-//         dashboard.incomes.forEach(income=>{
-//             if (income.id === req.params.iId){
-//                 Entry.deleteMany({incomeType: income.incomeType, dashboard: dashboard.id}).exec(function(err){
-//                     income.remove()
-//                     dashboard.save(function(err){
-//                         res.redirect(`/dashboards/${req.params.dId}`)
-//                     }) 
-//                 })
+function deleteIncome(req, res){
+    Dashboard.findById(req.params.dId, function(err, dashboard){
+        dashboard.incomes.forEach(income=>{
+            if (income.id === req.params.iId){
+                Entry.deleteMany({incomeType: income.incomeType, dashboard: dashboard.id}).exec(function(err){
+                    income.remove()
+                    dashboard.save(function(err){
+                        res.status(200).json("income groupsuccessfully deleted")
+                    }) 
+                })
                 
-//             }
-//         })
+            }
+        })
         
-//     })
-// }
+    })
+}
 // //makeedits
 // function update(req, res){
 //     Dashboard.findById(req.params.dId, function(err, dashboard){

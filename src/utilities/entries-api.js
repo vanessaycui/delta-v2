@@ -6,11 +6,11 @@ export function createEntry(dashId, entryData){ //not used yet
     return sendRequest(`${BASE_URL}/dashboards/${dashId}/entries`, 'POST', entryData)
 }
 
-export function getRowCategory(dashId, queryInfo){ //keep as post since more than 1 word for category type
+export function getRowCategory(dashId, queryInfo){ //keep as post since more than 1 word for category type. refactor to use category id instead.
     return sendRequest(`${BASE_URL}/dashboards/${dashId}/entries/categories`, 'POST', queryInfo)
 }
 
-export function getRowIncome(dashId, queryInfo){//keep as post since more than 1 work for income type
+export function getRowIncome(dashId, queryInfo){//keep as post since more than 1 word for income type. refactor to use incomes id instead
     return sendRequest(`${BASE_URL}/dashboards/${dashId}/entries/incomes`, 'POST', queryInfo)
 }
 

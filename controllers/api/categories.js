@@ -4,7 +4,7 @@ const Entry = require('../../models/entry')
 module.exports = {
     // show,
     create: createCategory,
-    // delete: deleteCategory,
+    delete: deleteCategory,
     // update
 };
 
@@ -27,20 +27,20 @@ async function createCategory(req, res){
     res.status(200).json(dashboard)
 }
 
-// function deleteCategory(req,res){
-//     Dashboard.findById(req.params.dId, function(err, dashboard){
-//         dashboard.categories.forEach(category=> {
-//             if (category.id === req.params.cId){
-//                 Entry.deleteMany({category:category.name, dashboard: dashboard.id}).exec(function(err){
-//                     category.remove()
-//                     dashboard.save(function(err){
-//                         res.redirect(`/dashboards/${req.params.dId}`)
-//                     })
-//                 })
-//             }
-//         })
-//     })
-// }
+function deleteCategory(req,res){
+    Dashboard.findById(req.params.dId, function(err, dashboard){
+        dashboard.categories.forEach(category=> {
+            if (category.id === req.params.cId){
+                Entry.deleteMany({category:category.name, dashboard: dashboard.id}).exec(function(err){
+                    category.remove()
+                    dashboard.save(function(err){
+                        res.status(200).json("category group successfully deleted")
+                    })
+                })
+            }
+        })
+    })
+}
 
 
 // function update(req,res){

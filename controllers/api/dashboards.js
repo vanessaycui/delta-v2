@@ -8,6 +8,7 @@ module.exports = {
   show,
   delete: deleteDashboard,
   update,
+
 };
 
 function createDashboard(req, res) {
@@ -44,6 +45,7 @@ function deleteDashboard(req, res) {
     });
   });
 }
+
 
 async function update(req, res) {
   let dashboard = await Dashboard.findById(req.params.id);

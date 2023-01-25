@@ -42,7 +42,7 @@ export default function EntryForm({
   
 
   let incomesList = currentDashboard.incomes.map((income, idx) => (
-    <option key={idx} value={income.incomeType}>
+    <option key={idx} value={income.incomeType} >
       {income.incomeType}
     </option>
   ));
@@ -107,6 +107,7 @@ export default function EntryForm({
                 onChange={handleCatChange}
                 required
               >
+                <option value="">----</option>
                 {categoriesList? categoriesList: <></>}
               </select>
               <label>Company</label>
@@ -162,6 +163,7 @@ export default function EntryForm({
                 onChange={handleIncomeChange}
                 required
               >
+                <option value="">----</option>
                 {incomesList? incomesList: <></>}
               </select>
               <label>Company</label>
