@@ -4,11 +4,26 @@ import * as dashboardsAPI from "../../utilities/dashboards-api";
 import "./Entries.css";
 
 export default function Entries({ currentDashboard, setCurrentDashboard }) {
+    const [entryType, setEntryType] = useState("income")
 
-    
+    let sources=[]
+    if (entryType === "income"){
+        let incomes = currentDashboard.incomes.map((income,idx)=> <div className="list-item" key={idx} value={income.incomeType}>{income.incomeType}</div>)
+        sources = [...incomes]
 
-    let categories = currentDashboard.categories.map((category,idx)=> <div className="list-item" key={idx} value={category.name}>{category.name}</div>)
-    let sources = [...categories]
+
+    } else if (entryType==="category"){
+        let categories = currentDashboard.categories.map((category,idx)=> <div className="list-item" key={idx} value={category.name}>{category.name}</div>)
+        sources = [...categories]
+    }
+
+    function handleClick(evt){
+        setEntryType(evt.target.name)
+    }
+
+
+
+ 
     return (
     <>
     <h1> Entries for {currentDashboard.title} </h1>
@@ -16,8 +31,8 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
         
         <div>
             <div className="entry-header">
-                <button>Income</button>
-                <button>Category</button>
+                <button name="income" onClick={handleClick}>Income</button>
+                <button name="category" onClick={handleClick}>Category</button>
             </div>
             <div className="income-cat-list">
                 {sources}
