@@ -9,12 +9,7 @@ router.post('/dashboards/:id/entries/categories', ensureLoggedIn, entriesCtrl.ge
 router.post('/dashboards/:id/entries/incomes', ensureLoggedIn, entriesCtrl.getRowIncome)
 router.post('/dashboards/:id/entries/filtered', ensureLoggedIn, entriesCtrl.getFilteredEntries)
 router.delete('/dashboards/:dId/entries/:eId', ensureLoggedIn, entriesCtrl.delete)
-
-// router.delete('/entries/:eId/categories/:cId',ensureLoggedIn, entriesCtrl.deleteCat)
-// router.delete('/entries/:eId/incomes/:iId',ensureLoggedIn, entriesCtrl.deleteIncome)
-// router.put('/entries/:eId/categories/:cId',ensureLoggedIn,entriesCtrl.updateCat)
-// router.put('/entries/:eId/incomes/:iId',ensureLoggedIn,entriesCtrl.updateIncome)
-
-
+router.put('/dashboards/:dId/entries/:eId/income', ensureLoggedIn, entriesCtrl.updateIncome)
+router.put('/dashboards/:dId/entries/:eId/category', ensureLoggedIn, entriesCtrl.updateCategory)
 
 module.exports = router;

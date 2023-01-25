@@ -18,7 +18,8 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
     type: null,
     data: "",
   }); //identifies what item is selected for edit (income/category group or entry)
-  const [showEditForms, setShowEditForms]=useState(false)
+  const [entryGroupData, setEntryGroupData] = useState({});
+  const [showEditForms, setShowEditForms] = useState(false);
 
   let entryGroups = []; //gets populated based on whether income or category button has been clicked
   if (entryType === "income") {
@@ -30,6 +31,7 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
         entryType={entryType}
         key={idx}
         entryData={income}
+        setEntryGroupData={setEntryGroupData}
       />
     ));
     entryGroups = [...incomes];
@@ -42,6 +44,7 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
         entryType={entryType}
         key={idx}
         entryData={category}
+        setEntryGroupData={setEntryGroupData}
       />
     ));
     entryGroups = [...categories];
@@ -50,17 +53,18 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
   function handleClick(evt) {
     //switches income and category type
     setEntryType(evt.target.name);
-    setShowEditForms(false)
+    setShowEditForms(false);
   }
 
-  async function handleEntryGroupSelection(evt) {
+  async function handleEntryGroupSelection(groupName) {
     //when a group is selected, retrieve assoc. entries from BE
-    setEntryGroup(evt.target.textContent);
+    setEntryGroup(groupName);
     let filteredEntries = await entriesAPI.getFilteredEntries(
       currentDashboard._id,
-      { [entryType]: evt.target.textContent }
+      { [entryType]: groupName }
     );
     setEntryList(filteredEntries);
+    setShowEditForms(false);
   }
 
   async function handleEntryGroupDelete(groupId) {
@@ -71,16 +75,50 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
     }
     let currentDash = await dashboardsAPI.getDashboard(currentDashboard._id);
     setCurrentDashboard(currentDash);
+    setEntryList([]);
+    setEntryGroup("");
   }
 
   //set-up state and data needed to generate proper form
   function handleEntryEdit(type, data) {
     setEditItemData({ type: type, data: data });
-    setShowEditForms(true)
+    setShowEditForms(true);
   }
 
-  //handle updating income/category group names + handle updating entry info.
-  function handleEntryUpdate() {} 
+  //handle updating UI after renaming income/category group, editing entry data
+  async function handleEntryUpdate(type) {
+    if (type === "income"){
+      let currentDash = await dashboardsAPI.getDashboard(currentDashboard._id);
+      setCurrentDashboard(currentDash);
+    //reset
+    setEntryList([]);
+    setEntryGroup("");
+
+    } else if (type==="category"){
+      let currentDash = await dashboardsAPI.getDashboard(currentDashboard._id);
+      setCurrentDashboard(currentDash);
+    //reset
+    setEntryList([]);
+    setEntryGroup("");
+    } else if (type==="entry-income"){
+      //required to get filtered entries again
+      let filteredEntries = await entriesAPI.getFilteredEntries(
+        currentDashboard._id,
+        { [entryType]: entryGroup }
+      );
+      setEntryList(filteredEntries);
+
+    }else if (type ==="entry-category"){
+      //required to get filtered entries again
+      let filteredEntries = await entriesAPI.getFilteredEntries(
+        currentDashboard._id,
+        { [entryType]: entryGroup }
+      );
+      setEntryList(filteredEntries);
+    }
+    setShowEditForms(false)
+
+  }
 
   async function handleDeletedEntry(entryId) {
     //triggered by deleting an entry item
@@ -104,6 +142,7 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
         entryType={entryType}
         key={idx}
         entry={entry}
+        showEditForms={showEditForms}
       />
     ));
   }
@@ -128,20 +167,35 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
         </div>
         <div>
           <div className="entry-header">
-            <h2>{entryGroup}</h2>
+            {entryGroup ? (
+              <>
+                <h2>{entryGroup}</h2>
+                <button
+                  onClick={() => {
+                    handleEntryEdit(entryType, entryGroupData);
+                  }}
+                >
+                  rename
+                </button>
+              </>
+            ) : (
+              <></>
+            )}
           </div>
           <div className="entry-section">
             {displayedEntries.length > 0 ? (
               displayedEntries
             ) : (
               <>
-                <p>No Entries</p>
+              {entryGroup? 
+                <p>No Entries</p>:
+                <p>No Entry Group Selected</p>}
               </>
             )}
           </div>
         </div>
         <div className="form-section">
-          <div className="entry-header">form section</div>
+          <div className="entry-header">Forms</div>
           <div>
             {showEditForms ? (
               <EditEntryForm

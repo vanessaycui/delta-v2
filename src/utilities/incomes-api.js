@@ -10,3 +10,7 @@ export function deleteIncome(dashId, incomeId){
     return sendRequest(`${BASE_URL}/dashboards/${dashId}/incomes/${incomeId}`,'DELETE');
 
 }
+
+export function updateIncome(dashId, incomeId, incomeData){
+    return sendRequest(`${BASE_URL}/dashboards/${dashId}/incomes/${incomeId}`,'PUT', incomeData);
+}

@@ -10,3 +10,7 @@ export function deleteCategory(dashId, catId){
     return sendRequest(`${BASE_URL}/dashboards/${dashId}/categories/${catId}`,'DELETE');
 
 }
+
+export function updateCategory(dashId, catId, catData){
+    return sendRequest(`${BASE_URL}/dashboards/${dashId}/categories/${catId}`,'PUT', catData);
+}

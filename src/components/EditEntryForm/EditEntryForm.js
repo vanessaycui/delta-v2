@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import * as entriesAPI from "../../utilities/entries-api";
+import * as incomesAPI from "../../utilities/incomes-api";
+import * as categoriesAPI from "../../utilities/categories-api";
 
 const today = new Date();
 
@@ -32,16 +34,29 @@ export default function EditEntryForm({
   }
 
   function handleEntryFormChange(evt) {
-    setEditEntry({ ...groupForm, [evt.target.name]: evt.target.value });
+    setEditEntry({ ...editEntry, [evt.target.name]: evt.target.value });
   }
 
-  function handleGroupFormSubmit(evt) {
+  async function handleGroupFormSubmit(evt) { //handles updating incomes/category group names
     evt.preventDefault();
-    if (evt.target.name === "income") {
+    if (editItemData.type=== "income") {
+      await incomesAPI.updateIncome(currentDashboard._id, groupForm.id, groupForm)
+    } else if (editItemData.type === "category") {
+      await categoriesAPI.updateCategory(currentDashboard._id, groupForm.id, groupForm)
+    }
+    handleEntryUpdate(editItemData.type)
+  }
+
+  async function handleEntryFormSubmit(evt){
+    evt.preventDefault();
+    if (editItemData.type === "entry-income") {
+      await entriesAPI.updateIncomeEntry(currentDashboard._id,editEntry.id,editEntry)
       //put for income
-    } else if (evt.target.name === "category") {
+    } else if (editItemData.type === "entry-category") {
+      await entriesAPI.updateCategoryEntry(currentDashboard._id,editEntry.id,editEntry)
       //put for category
     }
+    handleEntryUpdate(editItemData.type)
   }
 
   return (
@@ -49,7 +64,7 @@ export default function EditEntryForm({
       {/* edit income and category entry group name  */}
       {editItemData.type === "income" ? (
         <>
-          <form name="income">
+          <form name="income" onSubmit={handleGroupFormSubmit}>
             <label>Edit Income Group Name</label>
             <br />
             <input
@@ -58,14 +73,14 @@ export default function EditEntryForm({
               onChange={handleGroupFormChange}
               required
             />
-            <button type="submit">Edit</button>
+            <button type="submit">Rename</button>
           </form>
         </>
       ) : (
         <>
           {editItemData.type === "category" ? (
             <>
-              <form name="category">
+              <form name="category" onSubmit={handleGroupFormSubmit}>
                 <label>Edit Category Group Name</label>
                 <br />
                 <input
@@ -74,7 +89,7 @@ export default function EditEntryForm({
                   onChange={handleGroupFormChange}
                   required
                 />
-                <button type="submit">Edit</button>
+                <button type="submit">Rename</button>
               </form>
             </>
           ) : (
@@ -82,15 +97,7 @@ export default function EditEntryForm({
             <>
               {editItemData.type === "entry-income" ? (
                 <>
-                  <form>
-                    <label>Income Type:</label>
-                    <input
-                      name="incomeType"
-                      required
-                      value={editEntry.incomeType}
-                      onChange={handleEntryFormChange}
-                    />
-                    <br />
+                  <form name="income" onSubmit={handleEntryFormSubmit}>
                     <label>Company:</label>
                     <input
                       name="company"
@@ -127,23 +134,14 @@ export default function EditEntryForm({
                       onChange={handleEntryFormChange}
                     />
                     <br />
-                    <button>Edit</button>
+                    <button type="submit">Edit</button>
                   </form>
                 </>
               ) : (
                 <>
                   {editItemData.type === "entry-category" ? (
                     <>
-                    <form>
-                    <label>Category:</label>
-                    <input
-                      name="category"
-                      required
-                      value={editEntry.category}
-                      onChange={handleEntryFormChange}
-                    />
-                    <br />
-                  
+                    <form name="category" onSubmit={handleEntryFormSubmit}>
                     <label>Company:</label>
                     <input
                       name="company"
@@ -180,7 +178,7 @@ export default function EditEntryForm({
                       onChange={handleEntryFormChange}
                     />
                     <br />
-                    <button>Edit</button>
+                    <button type="submit">Edit</button>
                   </form>
                   </>
                   ) : (

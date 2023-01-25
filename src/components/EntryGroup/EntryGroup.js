@@ -5,18 +5,27 @@ export default function EntryGroup({
   entryData,
   handleEntryGroupSelection,
   handleEntryGroupDelete,
-  handleEntryEdit
+  handleEntryEdit,
+  setEntryGroupData,
 }) {
+
+  function handleClick(){
+    if (entryType==="income"){
+      handleEntryGroupSelection(entryData.incomeType)
+    } else if (entryType ==="category"){
+      handleEntryGroupSelection(entryData.name) 
+    }
+    console.log(entryData)
+    setEntryGroupData(entryData)
+  }
+
   return (
     <>
       <div className="EntryGroup">
-        <div onClick={handleEntryGroupSelection}>
+        <div onClick={handleClick}>
           {entryType === "income" ? entryData.incomeType : entryData.name}
         </div>
-        <div>
-          <button onClick={()=>{handleEntryEdit(entryType, entryData)}}>edit</button>
-          <button onClick={()=>{handleEntryGroupDelete(entryData._id)}}>delete</button>
-        </div>
+        <button onClick={()=>{handleEntryGroupDelete(entryData._id)}}>delete</button>
       </div>
     </>
   );

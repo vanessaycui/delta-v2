@@ -13,9 +13,9 @@ module.exports = {
   getRowIncome,
   getSummary,
   getFilteredEntries,
-  delete:deleteEntry
-  // updateCat: updateCategoryEntry,
-  // updateIncome: updateIncomeEntry
+  delete:deleteEntry,
+  updateIncome,
+  updateCategory,
 };
 
 function deleteEntry(req,res){
@@ -26,10 +26,6 @@ function deleteEntry(req,res){
     })
     
   })
-
-  //retrieve currentdashboard to refresh
-  //keep page 
-  
 }
 
 async function createEntry(req, res) {
@@ -235,15 +231,28 @@ async function getFilteredEntries(req,res){
 //   })
 // }
 
-// function updateIncomeEntry(req,res){
-//   Entry.findById(req.params.eId).exec(function(err, entry){
-//     entry.company =req.body.company
-//     entry.date = new Date(req.body.date)
-//     entry.income = req.body.income
-//     entry.comment = req.body.comment
-//     entry.person = req.body.person
-//     entry.save(function(err){
-//       res.redirect(`/dashboards/${entry.dashboard}/incomes/${req.params.iId}`)
-//     })
-//   })
-// }
+function updateIncome(req,res){
+  Entry.findById(req.params.eId).exec(function(err, entry){
+    entry.company =req.body.company
+    entry.date = new Date(req.body.date)
+    entry.income = req.body.income
+    entry.incomeType=req.body.incomeType
+    entry.comment = req.body.comment
+    entry.save(function(err){
+      res.status(200).json("income entry successfully updated")
+    })
+  })
+}
+
+function updateCategory(req,res){
+  Entry.findById(req.params.eId).exec(function(err, entry){
+    entry.category =req.body.category
+    entry.company =req.body.company
+    entry.date = new Date(req.body.date)
+    entry.cost = req.body.income
+    entry.comment = req.body.comment
+    entry.save(function(err){
+      res.status(200).json("income entry successfully updated")
+    })
+  })
+}

@@ -25,3 +25,11 @@ export function getFilteredEntries(dashId, queryInfo){
 export function deleteEntry(dashId, entryId){
     return sendRequest(`${BASE_URL}/dashboards/${dashId}/entries/${entryId}`, 'DELETE')
 }
+
+export function updateIncomeEntry(dashId, entryId, entryData){
+    return sendRequest(`${BASE_URL}/dashboards/${dashId}/entries/${entryId}/income`, 'PUT', entryData)
+}
+
+export function updateCategoryEntry(dashId, entryId, entryData){
+    return sendRequest(`${BASE_URL}/dashboards/${dashId}/entries/${entryId}/category`, 'PUT', entryData)
+}
