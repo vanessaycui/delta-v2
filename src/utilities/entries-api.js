@@ -2,7 +2,7 @@ import sendRequest from './send-request'
 
 const BASE_URL= '/api'
 
-export function createEntry(dashId, entryData){ //not used yet
+export function createEntry(dashId, entryData){ 
     return sendRequest(`${BASE_URL}/dashboards/${dashId}/entries`, 'POST', entryData)
 }
 
@@ -32,4 +32,8 @@ export function updateIncomeEntry(dashId, entryId, entryData){
 
 export function updateCategoryEntry(dashId, entryId, entryData){
     return sendRequest(`${BASE_URL}/dashboards/${dashId}/entries/${entryId}/category`, 'PUT', entryData)
+}
+
+export function getEntries(dashId){
+    return sendRequest(`${BASE_URL}/dashboards/${dashId}/entries`)
 }

@@ -173,7 +173,7 @@ export default function DashboardTable({
           </tr>
         </thead>
         {currentDashboard.categories ? (
-          <CategoryList currentDashboard={currentDashboard} />
+          <CategoryList currentDashboard={currentDashboard}/>
         ) : (
           <></>
         )}

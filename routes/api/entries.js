@@ -3,7 +3,9 @@ var router = express.Router();
 var entriesCtrl = require('../../controllers/api/entries')
 const ensureLoggedIn = require('../../config/ensureLoggedIn');
 
+
 router.get('/dashboards/:id/entries/summary',ensureLoggedIn, entriesCtrl.getSummary )
+router.get('/dashboards/:id/entries', ensureLoggedIn, entriesCtrl.index)
 router.post('/dashboards/:id/entries', ensureLoggedIn, entriesCtrl.create)
 router.post('/dashboards/:id/entries/categories', ensureLoggedIn, entriesCtrl.getRowCategory)
 router.post('/dashboards/:id/entries/incomes', ensureLoggedIn, entriesCtrl.getRowIncome)

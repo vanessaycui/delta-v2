@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import * as dashboardsAPI from "../../utilities/dashboards-api";
+import * as entriesAPI from "../../utilities/entries-api";
 
 import SideNavBar from "../../components/SideNavBar/SideNavBar";
 import NavBar from "../../components/NavBar/NavBar";
 import DashSettings from "../../components/DashSettings/DashSettings";
 import DashboardTable from "../../components/DashboardTable/DashboardTable";
-import Entries from "../../components/Entries/Entries"
+import Entries from "../../components/Entries/Entries";
+import DashboardChart from "../../components/DashboardChart/DashboardChart";
 import "./Dashboard.css";
 
 export default function Dashboard({
@@ -21,6 +23,8 @@ export default function Dashboard({
   const [showSideNav, setShowSideNav] = useState(false);
   const [showEntryForm, setShowEntryForm] = useState(false);
 
+
+
   useEffect(function () {
     //get all dashboard and set curr dash
     async function getallDash() {
@@ -29,6 +33,7 @@ export default function Dashboard({
       setCurrentDashboard(allDash[0]);
     }
     getallDash();
+
   }, []);
 
   function handleLogoClick() {
@@ -49,15 +54,15 @@ export default function Dashboard({
 
   function handleSettingsClick() {
     showDashSettings ? setDashSettings(false) : setDashSettings(true);
-    setShowSideNav(false)
+    setShowSideNav(false);
   }
 
   function handleEntriesClick() {
     showEntries ? setShowEntries(false) : setShowEntries(true);
-    setShowSideNav(false)
+    setShowSideNav(false);
   }
 
-  function handleBackClick(){
+  function handleBackClick() {
     showEntries ? setShowEntries(false) : setShowEntries(true);
   }
 
@@ -81,40 +86,44 @@ export default function Dashboard({
         dashboardList={dashboardList}
         setDashboardList={setDashboardList}
       />
-      {showDashSettings? 
-      <DashSettings
+      {showDashSettings ? (
+        <DashSettings
           handleSettingsClick={handleSettingsClick}
           currentDashboard={currentDashboard}
           setCurrentDashboard={setCurrentDashboard}
           dashboardList={dashboardList}
           setDashboardList={setDashboardList}
-        />: 
-        <>
-        
-
-      {showEntries? (
-        <Entries currentDashboard={currentDashboard} setCurrentDashboard={setCurrentDashboard} />
-        
+        />
       ) : (
         <>
-          <div className="dash-chart">chart</div>
-          {Object.keys(currentDashboard).length === 0 ? (
-            <></>
-          ) : (
-            <DashboardTable
+          {showEntries ? (
+            <Entries
               currentDashboard={currentDashboard}
               setCurrentDashboard={setCurrentDashboard}
-              showEntryForm={showEntryForm}
-              setShowEntryForm={setShowEntryForm}
             />
+          ) : (
+            <>
+              <div className="dash-chart">
+                {Object.keys(currentDashboard).length === 0 ? (
+                  <></>
+                ) : (
+                  <DashboardChart currentDashboard={currentDashboard} />
+                )}
+              </div>
+              {Object.keys(currentDashboard).length === 0 ? (
+                <></>
+              ) : (
+                <DashboardTable
+                  currentDashboard={currentDashboard}
+                  setCurrentDashboard={setCurrentDashboard}
+                  showEntryForm={showEntryForm}
+                  setShowEntryForm={setShowEntryForm}
+                />
+              )}
+            </>
           )}
         </>
       )}
-
-      </>
-      }
-
-
     </div>
   );
 }

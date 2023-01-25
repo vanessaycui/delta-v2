@@ -1,4 +1,9 @@
 .DashboardChart{
-    height: 20vh;
-    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    height: 40vh;
+    min-height: 400px;
+
 }

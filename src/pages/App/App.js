@@ -10,9 +10,8 @@ import "./App.css";
 
 export default function App() {
   const [user, setUser] = useState(getUser());
-    const [dashboardList, setDashboardList] = useState([]); //index function
+  const [dashboardList, setDashboardList] = useState([]); //index function
   const [currentDashboard, setCurrentDashboard] = useState({});
-
 
   return (
     <main className="App">

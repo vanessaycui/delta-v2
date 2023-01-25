@@ -1,6 +1,7 @@
 .DashboardTable table{
     min-width: 600px;
     height: 60vh;
+    min-height: 400px;
     margin: 0 auto;
   }
 
@@ -9,7 +10,6 @@
   width: auto;
   margin: 0 auto;
 }
-
 
 .table-forms{
   min-width:300px;

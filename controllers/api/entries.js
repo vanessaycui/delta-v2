@@ -16,7 +16,15 @@ module.exports = {
   delete:deleteEntry,
   updateIncome,
   updateCategory,
+  index
 };
+
+async function index(req, res){
+  let dashboard = await Dashboard.findById(req.params.id)
+  let entries = await Entry.find({dashboard: dashboard})
+  console.log(entries)
+  res.status(200).json(entries)
+}
 
 function deleteEntry(req,res){
   Entry.findById(req.params.eId).exec(function(err,entry){
@@ -187,49 +195,19 @@ async function getSummary(req, res) {
 async function getFilteredEntries(req,res){
 
   let entries = await Entry.find({dashboard:req.params.id})
-  let sortedEntries;
+  let filteredEntries;
 
   if (req.body.income){
-    sortedEntries = entries.filter(entry=> entry.incomeType === req.body.income)
+    filteredEntries = entries.filter(entry=> entry.incomeType === req.body.income)
 
   } else if (req.body.category){
-    sortedEntries = entries.filter(entry=> entry.category === req.body.category)
+    filteredEntries = entries.filter(entry=> entry.category === req.body.category)
   }
 
-  res.status(200).json(sortedEntries)
+  res.status(200).json(filteredEntries)
 
 }
 
-// function deleteCategoryEntry(req,res){
-//   Entry.findById(req.params.eId).exec(function(err, entry){
-//     entry.remove()
-//     entry.save(function(err){
-//       res.redirect(`/dashboards/${entry.dashboard}/categories/${req.params.cId}`)
-//     })
-//   })
-// }
-
-// function updateCategoryEntry(req,res){
-//   Entry.findById(req.params.eId).exec(function(err, entry){
-//     entry.company =req.body.company
-//     entry.date = new Date(req.body.date)
-//     entry.cost = req.body.cost
-//     entry.comment = req.body.comment
-//     entry.person = req.body.person
-//     entry.save(function(err){
-//       res.redirect(`/dashboards/${entry.dashboard}/categories/${req.params.cId}`)
-//     })
-//   })
-// }
-
-// function deleteIncomeEntry(req,res){
-//   Entry.findById(req.params.eId).exec(function(err, entry){
-//     entry.remove()
-//     entry.save(function(err){
-//       res.redirect(`/dashboards/${entry.dashboard}/incomes/${req.params.iId}`)
-//     })
-//   })
-// }
 
 function updateIncome(req,res){
   Entry.findById(req.params.eId).exec(function(err, entry){
