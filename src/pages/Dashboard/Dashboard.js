@@ -5,6 +5,7 @@ import SideNavBar from "../../components/SideNavBar/SideNavBar";
 import NavBar from "../../components/NavBar/NavBar";
 import DashSettings from "../../components/DashSettings/DashSettings";
 import DashboardTable from "../../components/DashboardTable/DashboardTable";
+import Entries from "../../components/Entries/Entries"
 import "./Dashboard.css";
 
 export default function Dashboard({
@@ -40,7 +41,7 @@ export default function Dashboard({
     async function showDashboard() {
       const currDashboard = await dashboardsAPI.getDashboard(evt.target.id);
       setCurrentDashboard(currDashboard);
-      setShowEntryForm(false)
+      setShowEntryForm(false);
     }
     showDashboard();
     setShowSideNav(false);
@@ -48,40 +49,53 @@ export default function Dashboard({
 
   function handleSettingsClick() {
     showDashSettings ? setDashSettings(false) : setDashSettings(true);
+    setShowSideNav(false)
   }
 
   function handleEntriesClick() {
     showEntries ? setShowEntries(false) : setShowEntries(true);
   }
 
+  function handleBackClick(){
+    showEntries ? setShowEntries(false) : setShowEntries(true);
+  }
+
   return (
     <div className="Dashboard">
-      {showDashSettings ? (
-        <DashSettings
+      <NavBar
+        handleLogoClick={handleLogoClick}
+        handleSettingsClick={handleSettingsClick}
+        handleEntriesClick={handleEntriesClick}
+        handleBackClick={handleBackClick}
+        showEntries={showEntries}
+        showDashSettings={showDashSettings}
+        name={currentDashboard && currentDashboard.title}
+        linkName={"All Entries"}
+      />
+      <SideNavBar
+        user={user}
+        setUser={setUser}
+        showSideNav={showSideNav}
+        handleDashClick={handleDashClick}
+        dashboardList={dashboardList}
+        setDashboardList={setDashboardList}
+      />
+      {showDashSettings? 
+      <DashSettings
           handleSettingsClick={handleSettingsClick}
           currentDashboard={currentDashboard}
           setCurrentDashboard={setCurrentDashboard}
           dashboardList={dashboardList}
           setDashboardList={setDashboardList}
-        />
+        />: 
+        <>
+        
+
+      {showEntries? (
+        <Entries currentDashboard={currentDashboard} setCurrentDashboard={setCurrentDashboard} />
+        
       ) : (
         <>
-          <NavBar
-            handleLogoClick={handleLogoClick}
-            handleSettingsClick={handleSettingsClick}
-            handleEntriesClick={handleEntriesClick}
-            name={currentDashboard && currentDashboard.title}
-            linkName={"All Entries"}
-          />
-          <SideNavBar
-            user={user}
-            setUser={setUser}
-            showSideNav={showSideNav}
-            handleDashClick={handleDashClick}
-            dashboardList={dashboardList}
-            setDashboardList={setDashboardList}
-          />
-
           <div className="dash-chart">chart</div>
           {Object.keys(currentDashboard).length === 0 ? (
             <></>
@@ -95,6 +109,11 @@ export default function Dashboard({
           )}
         </>
       )}
+
+      </>
+      }
+
+
     </div>
   );
 }

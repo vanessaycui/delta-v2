@@ -1,0 +1,36 @@
+.Entries{
+    display: flex;
+    margin: 0 auto;
+
+    
+}
+
+.income-cat-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.list-item{
+    padding: 5px;
+    min-height: 50px;
+    border: 2px solid black;
+}
+
+.entry-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+
+}
+
+.entry-section{
+    width: 50vw;
+    overflow-y: scroll;
+
+}
+
+.form-section{
+    min-width: 20vw;
+}
