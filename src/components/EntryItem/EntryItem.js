@@ -26,7 +26,7 @@ export default function EntryItem({ handleDeletedEntry, entryType, entry, handle
             </tr>
             <tr>
               <td>date:</td>
-              <td>{entry.date}</td>
+              <td>{entry.date.slice(0, 10)}</td>
             </tr>
             <tr>
               <td>company:</td>
