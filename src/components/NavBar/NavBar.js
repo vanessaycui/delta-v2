@@ -25,8 +25,7 @@ export default function NavBar({
                   Δ
                 </button>
               </div>
-
-              {name}
+              <h1>{name}</h1>
               {dashboardList.length > 0 ? (
                 <div>
                   <button onClick={handleEntriesClick}>{linkName}</button>

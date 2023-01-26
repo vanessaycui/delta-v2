@@ -43,7 +43,7 @@
     justify-content: center;
     flex-wrap: wrap;
     max-width: 50vw;
-    max-height: 40vh;
+    height: 40vh;
     overflow-y: scroll;
 }
 
@@ -70,6 +70,6 @@
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    height: 100px;
+    height: 85px;
 
 }
