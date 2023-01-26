@@ -36,7 +36,7 @@ export default function NavBar({
               {dashboardList.length > 0 ? (
                 <div>
                   <button className="btn-alt" onClick={handleEntriesClick}>
-                    VIEW ALL ENTRIES
+                    ALL ENTRIES
                   </button>
                   <button className="btn" onClick={handleSettingsClick}>
                     SETTINGS

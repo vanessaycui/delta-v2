@@ -165,7 +165,7 @@ export default function DashboardTable({
         )}
       </div>
       <table>
-        <thead>
+        <thead className="table-heading">
           <tr>
             <td>
               Categories{" "}
@@ -191,9 +191,9 @@ export default function DashboardTable({
                 +
               </button>
             </td>
-            <td> -- </td>
-            <td> -- </td>
-            <td> -- </td>
+            <td> ----- </td>
+            <td> ----- </td>
+            <td> ----- </td>
           </tr>
         
         {currentDashboard.incomes ? (

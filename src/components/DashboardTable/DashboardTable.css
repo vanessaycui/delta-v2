@@ -2,6 +2,9 @@ table {
   min-width: 600px;
   margin: 0 auto;
   font-size: 0.75rem;
+  background-color: var(--lightestblue);
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .DashboardTable{
@@ -14,7 +17,31 @@ table {
   height: 20px;
 }
 
+.cat-income-list td:hover{
+  font-weight: bold;
+  cursor: cell;
+  color: var(--orange);
+}
 
+.table-heading{
+  text-align: left;
+  padding-left: 10px;
+  font-weight: bold;
+}
+
+.table-division{
+  text-align: left;
+  padding-left: 10px;
+  font-weight: bold;
+}
+tfoot{
+  text-align: left;
+  font-weight: bold;
+}
+
+.summary-footer{
+  padding-left: 10px;
+}
 
 .table-forms  {
   display: flex;
