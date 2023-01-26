@@ -15,7 +15,6 @@ export default function DashboardChart({ currentDashboard}) {
     const currentMonthDate = new Date(date.getFullYear(), date.getMonth(), 0);
     const prevMonthDate = new Date(date.getFullYear(), date.getMonth() - 1, 0);
 
-
  
   useEffect(()=>{
     // to be refactored ------
