@@ -1,6 +1,33 @@
-.EntryForm form{
+.EntryForm{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    position: absolute;
+    right: 0;
+    bottom:0;
+    height: 80vh;
+    width: 300px;
+    background-color: var(--app-background-color-translucent);
+}
+
+.EntryForm label{
+    display: block;
+    
+
+}
+
+.past-entry-box{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    height: 150px;
+    width: 200px;
+    font-size: 12px;
+    text-align: center;
+    color: var(--darkgreen);
+}
+.past-entry-box p{
+   margin: 0;
+   text-align: left;
 }

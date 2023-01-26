@@ -1,6 +1,7 @@
 :root{
-  --app-background-color: whitesmoke;
+  --app-background-color: #f5f5f5;
   --app-logo-color: #D6E4E5;
+  --app-background-color-translucent: rgba(245,245,245,0.7);
   --sidenav-background-color: rgba(255,255,255,0.6);
   --maintitle1: #000;
   --maintitle2: rgb(120, 116, 116);

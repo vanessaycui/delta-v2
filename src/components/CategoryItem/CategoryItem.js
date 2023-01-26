@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import * as entriesAPI from "../../utilities/entries-api";
+import "./CategoryItem.css"
 
 export default function CategoryItem({ currentDashboard, category}) {
   const [rowInfo, setRowInfo] = useState({})
@@ -15,7 +16,7 @@ export default function CategoryItem({ currentDashboard, category}) {
   },[currentDashboard]);
 
   return (
-    <tr>
+    <tr className="cat-income-list">
       <td>{category.name}</td>
       <td>${rowInfo.prevMonth}</td>
       <td>{rowInfo.change}</td>

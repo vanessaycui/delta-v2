@@ -2,8 +2,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto;
-    height: 40vh;
-    min-height: 400px;
+}
 
+.pie-chart-box{
+    margin: 0 5%;
+}
+.pie-chart-box p{
+    font-size: 10px;
+    font-weight: bold;
+    color: var(--orange);
 }

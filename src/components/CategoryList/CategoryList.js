@@ -1,4 +1,5 @@
 import CategoryItem from "../CategoryItem/CategoryItem";
+import "./CategoryList.css"
 
 export default function CategoryList({ currentDashboard}) {
   const categoryList = currentDashboard.categories.map((category, idx) => (
@@ -9,5 +10,5 @@ export default function CategoryList({ currentDashboard}) {
  
     />
   ));
-  return <tbody>{categoryList}</tbody>;
+  return <>{categoryList}</>;
 }

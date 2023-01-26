@@ -14,7 +14,7 @@ export default function IncomeItem({currentDashboard, income}) {
     
 
   return (
-    <tr>
+    <tr className="cat-income-list">
       <td>{income.incomeType}</td>
       <td>${rowInfo.prevMonth}</td>
       <td>{rowInfo.change}</td>

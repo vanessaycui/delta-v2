@@ -15,9 +15,15 @@ export default function NavBar({
         <>
           {showEntries ? (
             <>
-
-              <button className="btn-alt"onClick={handleBackClick}>{"<"} DASHBOARD</button>
-              <h1>ALL ENTRIES FOR: <strong style={{color:"var(--darkgreen)"}}>{name? name.toUpperCase():''}</strong></h1>
+              <button className="btn-alt" onClick={handleBackClick}>
+                {"<"} DASHBOARD
+              </button>
+              <h1>
+                ALL ENTRIES FOR:{" "}
+                <strong style={{ color: "var(--darkgreen)" }}>
+                  {name ? name.toUpperCase() : ""}
+                </strong>
+              </h1>
             </>
           ) : (
             <>
@@ -26,11 +32,15 @@ export default function NavBar({
                   Δ
                 </button>
               </div>
-              <h1>{name? name.toUpperCase():""}</h1>
+              <h1>{name ? name.toUpperCase() : ""}</h1>
               {dashboardList.length > 0 ? (
                 <div>
-                  <button className="btn-alt" onClick={handleEntriesClick}>VIEW ALL ENTRIES</button>
-                  <button className="btn" onClick={handleSettingsClick}>SETTINGS</button>
+                  <button className="btn-alt" onClick={handleEntriesClick}>
+                    VIEW ALL ENTRIES
+                  </button>
+                  <button className="btn" onClick={handleSettingsClick}>
+                    SETTINGS
+                  </button>
                 </div>
               ) : (
                 <></>
@@ -40,13 +50,16 @@ export default function NavBar({
         </>
       ) : (
         <>
-        <div className="logo-btn-container">
-                <button className="logo-btn">
-                  Δ
-                </button>
-              </div>
-        <h1>SETTINGS FOR: <strong style={{color:"var(--darkgreen)"}}>{name? name.toUpperCase(): ""}</strong></h1>
-      </>
+          <div className="logo-btn-container">
+            <button className="logo-btn">Δ</button>
+          </div>
+          <h1>
+            SETTINGS FOR:{" "}
+            <strong style={{ color: "var(--darkgreen)" }}>
+              {name ? name.toUpperCase() : ""}
+            </strong>
+          </h1>
+        </>
       )}
     </nav>
   );

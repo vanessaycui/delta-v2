@@ -15,16 +15,15 @@ export default function DashboardTable({
   setCurrentDashboard,
   showEntryForm,
   setShowEntryForm,
+  formType,
+  catForm,
+  setCatForm,
+  incomeForm,
+  setIncomeForm
 }) {
-  //set form type for entry and toggle entry form
-  const [formType, setFormType] = useState();
   
-
   //toggles category and income form
-  const [catForm, setCatForm] = useState(false);
-  const [incomeForm, setIncomeForm] = useState(false);
   const [error, setError] = useState("");
-
 
   //data for new category/new income
   const [catInput, setCatInput] = useState({
@@ -53,7 +52,6 @@ export default function DashboardTable({
       setIncomeInput({ incomeType: evt.target.value });
     }
   }
-
   async function handleSubmit(evt) {
     evt.preventDefault();
     if (evt.target.name === "new-cat-form") {
@@ -94,10 +92,6 @@ export default function DashboardTable({
     }
   }
 
-  function changeEntryType(evt) {
-    setFormType(evt.target.name);
-    setShowEntryForm(true);
-  }
 
   function handleCancel(evt) {
     evt.preventDefault();
@@ -118,14 +112,17 @@ export default function DashboardTable({
               autoComplete="off"
               onSubmit={handleSubmit}
             >
+              <h4>ADD NEW CATEGORY TYPE:</h4>
               <label>New Category:</label>
               <br/>
               <input
+              className="input-space"
                 name="category-input"
                 value={catInput.category}
                 onChange={handleChange}
               ></input>
-              <button type="submit">add</button>
+              <br/>
+              <button className="btn" type="submit">+</button>
               <button name="cat-cancel" className="btn" onClick={handleCancel}>
                 x
               </button>
@@ -142,14 +139,17 @@ export default function DashboardTable({
               autoComplete="off"
               onSubmit={handleSubmit}
             >
-              <label>New Income:</label>
+              <h4>ADD NEW INCOME TYPE:</h4>
+              <label>New Income Type:</label>
               <br/>
               <input
+              className="input-space"
                 name="income-input"
                 value={incomeInput.income}
                 onChange={handleChange}
               />
-              <button type="submit">add</button>
+              <br/>
+              <button className="btn" type="submit">+</button>
               <button
                 name="income-cancel"
                 className="btn"
@@ -169,8 +169,8 @@ export default function DashboardTable({
           <tr>
             <td>
               Categories{" "}
-              <button name="category" onClick={handleAddCatIncome}>
-                add
+              <button className="btn" name="category" onClick={handleAddCatIncome}>
+                +
               </button>
             </td>
             <td>Prev. Month Total</td>
@@ -178,69 +178,49 @@ export default function DashboardTable({
             <td>Current Month</td>
           </tr>
         </thead>
+        <tbody>
         {currentDashboard.categories ? (
           <CategoryList currentDashboard={currentDashboard}/>
         ) : (
           <></>
         )}
-        <tbody>
-          <tr>
+          <tr className="table-division">
             <td>
               Incomes{" "}
-              <button name="income" onClick={handleAddCatIncome}>
-                add
+              <button className="btn" name="income" onClick={handleAddCatIncome}>
+                +
               </button>
             </td>
             <td> -- </td>
             <td> -- </td>
             <td> -- </td>
           </tr>
-        </tbody>
+        
         {currentDashboard.incomes ? (
           <IncomeList currentDashboard={currentDashboard} />
         ) : (
           <></>
         )}
+        </tbody>
         <TableFooter summaryData={summaryData} />
       </table>
-      <div>
-        {currentDashboard.categories ? (
-          currentDashboard.categories.length > 0 ? (
-            <button name="categoryEntry" onClick={changeEntryType}>
-              Add Cost
-            </button>
-          ) : (
-            <></>
-          )
-        ) : (
-          <></>
-        )}
-        {currentDashboard.incomes ? (
-          currentDashboard.incomes.length > 0 ? (
-            <button name="incomeEntry" onClick={changeEntryType}>
-              Add Income
-            </button>
-          ) : (
-            <></>
-          )
-        ) : (
-          <></>
-        )}
-      </div>
-      <div className="table-forms">
-        {Object.keys(currentDashboard).length === 0 ? (
+      {Object.keys(currentDashboard).length === 0 ? (
           <></>
         ) : ( setShowEntryForm?
+      
+      <div>
           <EntryForm
             currentDashboard={currentDashboard}
             setCurrentDashboard={setCurrentDashboard}
             formType={formType}
             showEntryForm={showEntryForm}
             setShowEntryForm={setShowEntryForm}
-          />:
-          <></>
-        )}
+          />
       </div>
+      :
+      <></>
+    
+      )}
     </div>
   );
 }

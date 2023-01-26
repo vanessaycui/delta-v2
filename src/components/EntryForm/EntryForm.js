@@ -161,16 +161,19 @@ export default function EntryForm({
   }
 
   return (
-    <div>
+    <>
+    
       {showEntryForm ? (
+        
         <div className="EntryForm">
+    
           {formType === "categoryEntry" ? (
             <form
               name="category"
               autoComplete="off"
               onSubmit={handleEntrySubmit}
             >
-              <h1>New Entry</h1>
+              <h4>ADD NEW CATEGORY ENTRY</h4>
               <label>Category</label>
               <select
                 name="category"
@@ -181,16 +184,20 @@ export default function EntryForm({
                 <option value="">----</option>
                 {categoriesList ? categoriesList : <></>}
               </select>
+              <br/>
               <label>Company</label>
               <input
+              className="input-space"
                 type="text"
                 name="company"
                 value={newCategoryEntry.company}
                 onChange={handleCatChange}
                 pattern="[a-zA-Z0-9 ]{1,20}"
               ></input>
+              <br/>
               <label>Date</label>
               <input
+              className="input-space"
                 type="date"
                 name="date"
                 value={newCategoryEntry.date}
@@ -198,8 +205,10 @@ export default function EntryForm({
                 max={today.toISOString().slice(0, 10)}
                 onChange={handleCatChange}
               ></input>
+              <br/>
               <label>Amount</label>
               <input
+              className="input-space"
                 type="number"
                 name="cost"
                 value={newCategoryEntry.amount}
@@ -208,13 +217,16 @@ export default function EntryForm({
                 step=".01"
                 onChange={handleCatChange}
               ></input>
+              <br/>
               <label>Comment</label>
               <input
+              className="input-space"
                 type="text"
                 name="comment"
                 value={newCategoryEntry.comment}
                 onChange={handleCatChange}
               ></input>
+              <br/>
 
               <button className="btn" type="submit">
                 Done
@@ -226,7 +238,7 @@ export default function EntryForm({
             </form>
           ) : (
             <form name="income" autoComplete="off" onSubmit={handleEntrySubmit}>
-              <h1>Add Income</h1>
+              <h4>ADD NEW INCOME ENTRY</h4>
               <label>Income Type</label>
               <select
                 name="incomeType"
@@ -237,16 +249,20 @@ export default function EntryForm({
                 <option value="">----</option>
                 {incomesList ? incomesList : <></>}
               </select>
+              <br/>
               <label>Company</label>
               <input
+              className="input-space"
                 type="text"
                 name="company"
                 value={newIncomeEntry.company}
                 onChange={handleIncomeChange}
                 pattern="[a-zA-Z0-9 ]{1,20}"
               ></input>
+              <br/>
               <label>Date</label>
               <input
+              className="input-space"
                 type="date"
                 name="date"
                 value={newIncomeEntry.date}
@@ -254,8 +270,10 @@ export default function EntryForm({
                 max={today.toISOString().slice(0, 10)}
                 onChange={handleIncomeChange}
               ></input>
+              <br/>
               <label>Amount</label>
               <input
+              className="input-space"
                 type="number"
                 name="income"
                 value={newIncomeEntry.amount}
@@ -264,13 +282,17 @@ export default function EntryForm({
                 step=".01"
                 onChange={handleIncomeChange}
               ></input>
+              <br/>
               <label>Comment</label>
               <input
+              className="input-space"
                 type="text"
                 name="comment"
                 value={newIncomeEntry.comment}
                 onChange={handleIncomeChange}
               ></input>
+              <br/>
+
 
               <button className="btn" type="submit">
                 Done
@@ -281,14 +303,21 @@ export default function EntryForm({
               <p className="error-message">&nbsp;{error}</p>
             </form>
           )}
+      
+
+        <div className="past-entry-box">
+          <h4>Past entries:</h4>
+          {pastEntriesList? <>{pastEntriesList}</>:<>No Entries</>}
         </div>
+        </div>
+
+
       ) : (
         <></>
       )}
-      {pastEntriesList? <>{pastEntriesList}</>:<></>}
-      <div>
+      
 
-      </div>
-    </div>
+
+    </>
   );
 }

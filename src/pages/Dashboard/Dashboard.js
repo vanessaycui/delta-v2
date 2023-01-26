@@ -22,9 +22,14 @@ export default function Dashboard({
   const [showDashSettings, setDashSettings] = useState(false);
   const [showSideNav, setShowSideNav] = useState(false);
   const [showEntryForm, setShowEntryForm] = useState(false);
-  const [showPieChart, setShowPieChart]=useState(false)
+  const [showPieChart, setShowPieChart] = useState(false);
+  //set form type for entry and toggle entry form
+  const [formType, setFormType] = useState();
+  const [catForm, setCatForm] = useState(false);
+  const [incomeForm, setIncomeForm] = useState(false);
 
-  useEffect(function () {//side-nav: get all dashboards assoc. w user and set current dashboard
+  useEffect(function () {
+    //side-nav: get all dashboards assoc. w user and set current dashboard
     async function getallDash() {
       const allDash = await dashboardsAPI.getAll(user._id);
       setDashboardList(allDash);
@@ -33,15 +38,18 @@ export default function Dashboard({
     getallDash();
   }, []);
 
-  function handleChartSwitch(){ //dashboard: toggle betwen pie chart and bar chart
-    showPieChart? setShowPieChart(false): setShowPieChart(true)
+  function handleChartSwitch() {
+    //dashboard: toggle betwen pie chart and bar chart
+    showPieChart ? setShowPieChart(false) : setShowPieChart(true);
   }
 
-  function handleLogoClick() { //dashboard: toggle side navigation
+  function handleLogoClick() {
+    //dashboard: toggle side navigation
     showSideNav ? setShowSideNav(false) : setShowSideNav(true);
   }
 
-  function handleDashClick(evt) {//side-nav: handle dashboard selection 
+  function handleDashClick(evt) {
+    //side-nav: handle dashboard selection
     async function showDashboard() {
       const currDashboard = await dashboardsAPI.getDashboard(evt.target.id);
       setCurrentDashboard(currDashboard);
@@ -51,21 +59,28 @@ export default function Dashboard({
     setShowSideNav(false);
   }
 
-  function handleSettingsClick() { //dashboard: settings button
+  function handleSettingsClick() {
+    //dashboard: settings button
     showDashSettings ? setDashSettings(false) : setDashSettings(true);
     setShowSideNav(false);
-    setShowEntryForm(false)
+    setShowEntryForm(false);
   }
 
-  function handleEntriesClick() {//dashboard: entries button
+  function handleEntriesClick() {
+    //dashboard: entries button
     showEntries ? setShowEntries(false) : setShowEntries(true);
     setShowSideNav(false);
-    setShowEntryForm(false)
+    setShowEntryForm(false);
   }
 
-  function handleBackClick() { //entries: go back to dashboard button
+  function handleBackClick() {
+    //entries: go back to dashboard button
     showEntries ? setShowEntries(false) : setShowEntries(true);
-    setShowEntryForm(false)
+    setShowEntryForm(false);
+  }
+  function changeEntryType(evt) {
+    setFormType(evt.target.name);
+    setShowEntryForm(true);
   }
 
   return (
@@ -88,47 +103,95 @@ export default function Dashboard({
         dashboardList={dashboardList}
         setDashboardList={setDashboardList}
       />
-      {dashboardList.length>0 ?(<>
-      {showDashSettings ? (
-        <DashSettings
-          handleSettingsClick={handleSettingsClick}
-          currentDashboard={currentDashboard}
-          setCurrentDashboard={setCurrentDashboard}
-          dashboardList={dashboardList}
-          setDashboardList={setDashboardList}
-        />
-      ) : (
+      {dashboardList.length > 0 ? (
         <>
-          {showEntries ? (
-            <Entries
+          {showDashSettings ? (
+            <DashSettings
+              handleSettingsClick={handleSettingsClick}
               currentDashboard={currentDashboard}
               setCurrentDashboard={setCurrentDashboard}
+              dashboardList={dashboardList}
+              setDashboardList={setDashboardList}
             />
           ) : (
             <>
-              <div className="dash-chart">
-                {Object.keys(currentDashboard).length === 0 ? (
-                  <></>
-                ) : (
-                  <DashboardChart currentDashboard={currentDashboard} showPieChart={showPieChart} />
-                )}
-                <button onClick={handleChartSwitch}>{showPieChart? "Bar Chart":"Pie Chart"}</button>
-              </div>
-              {Object.keys(currentDashboard).length === 0 ? (
-                <></>
-              ) : (
-                <DashboardTable
+              {showEntries ? (
+                <Entries
                   currentDashboard={currentDashboard}
                   setCurrentDashboard={setCurrentDashboard}
-                  showEntryForm={showEntryForm}
-                  setShowEntryForm={setShowEntryForm}
                 />
+              ) : (
+                <>
+            
+                    {Object.keys(currentDashboard).length === 0 ? (
+                      <></>
+                    ) : (
+                      <DashboardChart
+                        currentDashboard={currentDashboard}
+                        showPieChart={showPieChart}
+                      />
+                    )}
+
+           
+
+                  <div className="add-entry-buttons">
+                      <button className="btn" onClick={handleChartSwitch}>
+                        {showPieChart ? "BAR CHART" : "PIE CHART"}
+                      </button>
+                      {currentDashboard.categories ? (
+                        currentDashboard.categories.length > 0 ? (
+                          <button
+                            className="btn"
+                            name="categoryEntry"
+                            onClick={changeEntryType}
+                          >
+                            + EXPENSE
+                          </button>
+                        ) : (
+                          <></>
+                        )
+                      ) : (
+                        <></>
+                      )}
+                      {currentDashboard.incomes ? (
+                        currentDashboard.incomes.length > 0 ? (
+                          <button
+                            className="btn"
+                            name="incomeEntry"
+                            onClick={changeEntryType}
+                          >
+                            + INCOME
+                          </button>
+                        ) : (
+                          <></>
+                        )
+                      ) : (
+                        <></>
+                      )}
+                    </div>
+                  {Object.keys(currentDashboard).length === 0 ? (
+                    <></>
+                  ) : (
+                    <DashboardTable
+                      currentDashboard={currentDashboard}
+                      setCurrentDashboard={setCurrentDashboard}
+                      showEntryForm={showEntryForm}
+                      setShowEntryForm={setShowEntryForm}
+                      formType={formType}
+                      catForm={catForm}
+                      setCatForm={setCatForm}
+                      incomeForm={incomeForm}
+                      setIncomeForm={setIncomeForm}
+                    />
+                  )}
+                </>
               )}
             </>
           )}
         </>
+      ) : (
+        <>You have no dashboards. Create a new one to start.</>
       )}
-      </>):<>You have no dashboards. Create a new one to start.</>}
     </div>
   );
 }

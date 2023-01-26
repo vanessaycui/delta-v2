@@ -9,7 +9,7 @@ export default function DoughnutChart({data}){
         }
       }
 
-    return <div><Doughnut
+    return <div className="DoughnutChart"><Doughnut
     data={data}
     options={options}
     /></div>
