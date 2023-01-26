@@ -27,8 +27,8 @@ export default function AuthPage(props) {
   }, []);
   let coinList;
   if (coinStats.length > 0) {
-    coinList = coinStats.map((coin) => (
-      <div>
+    coinList = coinStats.map((coin,key) => (
+      <div key={key}>
         <a href={coin.websiteUrl}>
           <img src={coin.icon} />
         </a>
@@ -45,15 +45,15 @@ export default function AuthPage(props) {
         {status == "login" ? (
           <>
             <LoginForm setUser={props.setUser} />
-            <button className="btn" name="register" onClick={handleClick}>
-              register
+            <button className="btn long-btn" name="register" onClick={handleClick}>
+              REGISTER
             </button>
           </>
         ) : (
           <>
             <SignUpForm setUser={props.setUser} />
-            <button className="btn" name="login" onClick={handleClick}>
-              login with my account
+            <button className="btn long-btn" name="login" onClick={handleClick}>
+              LOGIN
             </button>
           </>
         )}
@@ -61,18 +61,19 @@ export default function AuthPage(props) {
       <div className="app-logo">
         {/* logo side */}
         <h1>Δ</h1>
-        <h1>DELTA</h1>
+        <h2>DELTA</h2>
         <p>
-          The letter Delta is often used to represent change, change of
+          "The letter Delta is often used to represent change, change of
           direction, or change of state, and in this case, it could represent
           the change of state of one's money, from having less to having more,
           or from being in debt to being financially stable. Additionally, Delta
           also represents difference and in this case, it could represent the
           difference in one's financial situation before and after using the app
-          or financial service.
+          or financial service."
         </p>
         <p>-ChatGPT</p>
-        <div>{coinList}</div>
+        <h4>Cryptocurrency Ranking</h4>
+        <div className="horizontal-list">{coinList}</div>
       </div>
     </div>
   );

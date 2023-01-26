@@ -12,10 +12,10 @@ module.exports = {
 async function create(req, res) {
   try {
     const user = await User.create(req.body);
-    
     const firstDash = {title: "First Dashboard", admin:user.id}
     const dashboard = new Dashboard(firstDash)
     dashboard.save();
+    console.log(dashboard)
     const token = createJWT(user);
  
     res.status(200).json(token);

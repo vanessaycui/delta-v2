@@ -41,21 +41,29 @@ export default function SideNavBar({
 
   return (
     <nav className="SideNavBar" style={{left: showSideNav? "0px": "-200px"}}>
+       {dashboardList.length>0?  <h3>{user.name}'s Dashboards</h3> : <h3>Create your first dashboard here.</h3>}
+      
       <div className="dashboard-container">{populateDashboardList}</div>
-
-      {showNewDashForm ? (
+     
+      <div className="create-dash-form-container">
+      {showNewDashForm ? (<>
+        
         <CreateDashboardForm
           setShowNewDashForm={setShowNewDashForm}
           setDashboardList={setDashboardList}
           dashboardList={dashboardList}
         />
+        </>
       ) : (
-        <button onClick={handleShowDashForm}>Create New Dashboard</button>
+        
+        <button className="btn long-btn"onClick={handleShowDashForm}>Create New Dashboard</button>
+        
       )}
+      </div>
 
-      <div>Welcome, {user.name}</div>
-      <div>
-        <Link to="/" onClick={handleLogout}>
+      
+      <div className="logout-box">
+        <Link className="link-color" to="/" onClick={handleLogout}>
           {" "}
           Logout{" "}
         </Link>

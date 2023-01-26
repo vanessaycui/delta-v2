@@ -21,7 +21,7 @@ export default function CreateDashboardForm({setShowNewDashForm, dashboardList, 
             const dashboard = await dashboardsAPI.createDashboard(newDashboard);
             setDashboardList([...dashboardList, dashboard])
         } catch {
-            setError('Create New Dashboard Failed - Try Again');
+            console.log('Create New Dashboard Failed - Try Again');
         }
     }
 
@@ -34,11 +34,12 @@ export default function CreateDashboardForm({setShowNewDashForm, dashboardList, 
     <div>
       <div className="CreateDashboardForm">
         <form autoComplete="off" onSubmit={handleSubmit}>
+          <div>
           <label>New Dashboard Title</label>
-          <input type="text" name="title" value={newDashboard.title} onChange={handleChange} required />
+          <input className="input-space"type="text" name="title" value={newDashboard.title} onChange={handleChange} required />
+          </div>
           <button className="btn" type="submit">Done</button>
-          <button className="btn" onClick={handleCancel}>cancel</button>
-          <p className="error-message">&nbsp;{error}</p>
+          <button className="btn" onClick={handleCancel}>Cancel</button>
         </form>
       </div>
     </div>

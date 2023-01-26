@@ -20,7 +20,6 @@ var dashboardSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
-    unique: true
   },
   admin: {
     type: mongoose.Schema.Types.ObjectId,

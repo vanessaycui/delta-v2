@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { signUp } from "../../utilities/users-service";
 
+import "./SignUpForm.css"
+
 export default function SignUpForm({ setUser }) {
   const [registration, setRegistration] = useState({
     name: "",
@@ -32,7 +34,7 @@ export default function SignUpForm({ setUser }) {
   }
 
   return (
-    <div>
+    <div className="SignUpForm">
       <div className="form-container">
         <form autoComplete="off" onSubmit={handleSubmit}>
           <label>Name</label>
@@ -43,6 +45,7 @@ export default function SignUpForm({ setUser }) {
             onChange={handleChange}
             required
           />
+          <br/>
           <label>Email</label>
           <input
             type="email"
@@ -51,6 +54,7 @@ export default function SignUpForm({ setUser }) {
             onChange={handleChange}
             required
           />
+          <br/>
           <label>Password</label>
           <input
             type="password"
@@ -59,6 +63,7 @@ export default function SignUpForm({ setUser }) {
             onChange={handleChange}
             required
           />
+          <br/>
           <label>Confirm</label>
           <input
             type="password"
@@ -67,8 +72,9 @@ export default function SignUpForm({ setUser }) {
             onChange={handleChange}
             required
           />
+          <br/>
           <button
-            className="btn"
+            className="btn-alt long-btn"
             type="submit"
             // disabled={registration.password !== registration.confirm}
           >

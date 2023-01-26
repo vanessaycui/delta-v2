@@ -1,14 +1,14 @@
 .SideNavBar{
     position: absolute;
-    background-color: rgba(0,0,0,0.5);
+    background-color: var(--sidenav-background-color);
     padding: 5px;
-    margin-left: 5px;
+    margin-left: 2%;
     margin-top: 5px;
-    height: 90vh;
+    min-height: 60vh;
     width: 150px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;    
     border-radius: 10px;
 }
@@ -16,18 +16,26 @@
 .dashboard-box{
     height: 100px;
     width: 100px;
-    background-color: aqua;
+    background-color: var(--darkgreen);
+    color: var(--lightblue);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 10px;
     margin: 5px;
+    font-size: 0.7rem;
+    transition: 0.3s;
+    border-radius: 5px;
 }
 
 .dashboard-box:hover{
     cursor: pointer;
     font-weight: bold;
+    color:var(--lightestblue);
+    background-color: var(--darkgreen);
+    font-size: 0.9rem;
+    transition: 0.3s;
 }
 
 .dashboard-container{
@@ -35,8 +43,33 @@
     justify-content: center;
     flex-wrap: wrap;
     max-width: 50vw;
-    max-height: 60vh;
+    max-height: 40vh;
     overflow-y: scroll;
 }
 
 
+.logout-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    width: 80px;
+    margin: 20px;
+    border-radius: 5px;
+
+    transition: 0.3s;
+
+}
+
+.logout-box:hover{
+
+    transition: 0.3s;
+}
+
+.create-dash-form-container{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 100px;
+
+}
