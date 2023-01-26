@@ -19,7 +19,7 @@ export default function CategoryItem({ currentDashboard, category}) {
     <tr className="cat-income-list">
       <td>{category.name}</td>
       <td>${rowInfo.prevMonth}</td>
-      <td>{rowInfo.change}</td>
+      <td style={{color: rowInfo.change>0? "var(--orange)":"var(--black)"}}>{rowInfo.change}</td>
       <td>${rowInfo.currMonth}</td>
     </tr>
   );

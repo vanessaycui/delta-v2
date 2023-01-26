@@ -17,9 +17,9 @@ export default function TableFooter({ summaryData }) {
           </tr>
           <tr>
             <td>Net Savings:</td>
-            <td className="summary-footer">${Object.keys(summaryData).length >0 ? summaryData.prevMonth.netSavings:0}</td>
+            <td className="summary-footer" style={{color: summaryData.prevMonth.netSavings<0? "var(--orange)":"var(--black)"}}>${Object.keys(summaryData).length >0 ? summaryData.prevMonth.netSavings:0}</td>
             <td></td>
-            <td className="summary-footer">${Object.keys(summaryData).length >0 ? summaryData.currMonth.netSavings:0}</td>
+            <td className="summary-footer" style={{color: summaryData.prevMonth.netSavings<0? "var(--orange)":"var(--black)"}}>${Object.keys(summaryData).length >0 ? summaryData.currMonth.netSavings:0}</td>
           </tr>
         </tfoot>
 

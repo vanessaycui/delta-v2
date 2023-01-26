@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import * as entriesAPI from "../../utilities/entries-api";
 import * as incomesAPI from "../../utilities/incomes-api";
 import * as categoriesAPI from "../../utilities/categories-api";
+import "./EditEntryForm.css"
 
 const today = new Date();
 

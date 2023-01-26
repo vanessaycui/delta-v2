@@ -1,6 +1,7 @@
 .Entries{
     display: flex;
-    margin: 0 auto;    
+    margin: 0 auto;
+    width: 90vw;    
 }
 
 .income-cat-list{
@@ -9,14 +10,13 @@
     justify-content: center;
 }
 
-
 .entry-header{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
-    height: 100px;
-
+    align-items: center;
+    height: 120px;
+    padding: 5px;
 }
 
 .entry-section{
