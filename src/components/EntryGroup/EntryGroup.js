@@ -21,11 +21,12 @@ export default function EntryGroup({
 
   return (
     <>
-      <div className="EntryGroup">
-        <div onClick={handleClick}>
-          {entryType === "income" ? entryData.incomeType : entryData.name}
+      <div className="EntryGroup" onClick={handleClick}>
+      <button className="btn"onClick={()=>{handleEntryGroupDelete(entryData._id)}}>x</button>
+        <div >
+          <p>{entryType === "income" ? entryData.incomeType : entryData.name}</p>
         </div>
-        <button onClick={()=>{handleEntryGroupDelete(entryData._id)}}>delete</button>
+        
       </div>
     </>
   );
