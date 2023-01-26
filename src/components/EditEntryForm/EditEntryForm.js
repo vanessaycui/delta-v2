@@ -190,6 +190,7 @@ export default function EditEntryForm({
       )}
 
       <button onClick={() => setShowEditForms(false)}>Cancel</button>
+
     </div>
   );
 }

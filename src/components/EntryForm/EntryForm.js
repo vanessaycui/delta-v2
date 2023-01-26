@@ -28,7 +28,50 @@ export default function EntryForm({
     income: 0,
     comment: "",
   });
+
+  const[pastEntries, setPastEntries]=useState([])
+
   const [error, setError] = useState("");
+
+  //***********RETRIEVE PAST ENTRIES */
+  useEffect(()=>{
+    async function getFilteredEntries(){
+      if (newCategoryEntry.category !==""){
+        let catEntries = await entriesAPI.getFilteredEntries(currentDashboard._id, newCategoryEntry )
+        catEntries.sort((a,b)=>{ //sort decending order
+          const entryA= new Date(a.createdAt)
+          const entryB = new Date(b.createdAt)
+          return entryB- entryA
+        })
+        setPastEntries(catEntries.slice(0,5))
+      }
+    }
+    getFilteredEntries()   
+  }, [newCategoryEntry.category])
+
+  useEffect(()=>{
+    async function getFilteredEntries(){
+      if (newIncomeEntry.incomeType !==""){
+        let incomeEntries = await entriesAPI.getFilteredEntries(currentDashboard._id, newIncomeEntry )
+        incomeEntries.sort((a,b)=>{ //sort decending order
+          const entryA= new Date(a.createdAt)
+          const entryB = new Date(b.createdAt)
+          return entryB- entryA
+        })
+        setPastEntries(incomeEntries.slice(0,5))
+      }
+    }
+    getFilteredEntries()   
+  }, [newIncomeEntry.incomeType])
+
+  let pastEntriesList;
+  if (pastEntries){
+    pastEntriesList=pastEntries.map(entry=><p>${entry.cost}{entry.income} @ {entry.company? entry.company : "unknown company"} on {entry.date.slice(0,10)} </p>)
+  }
+
+
+
+
 
   let categoriesList = currentDashboard.categories.map((category, idx) => (
     <option key={idx} value={category.name}>
@@ -80,11 +123,41 @@ export default function EntryForm({
       }
     }
     setShowEntryForm(false);
+    setPastEntries([])
+    setNewCategoryEntry({
+      category: "",
+      company: "",
+      date: today.toISOString().slice(0, 10),
+      cost: 0,
+      comment: "",
+    })
+    setNewIncomeEntry({
+      incomeType: "",
+      company: "",
+      date: today.toISOString().slice(0, 10),
+      income: 0,
+      comment: "",
+    })
   }
 
   function handleCancel(evt) {
     evt.preventDefault();
     setShowEntryForm(false);
+    setNewCategoryEntry({
+      category: "",
+      company: "",
+      date: today.toISOString().slice(0, 10),
+      cost: 0,
+      comment: "",
+    })
+    setNewIncomeEntry({
+      incomeType: "",
+      company: "",
+      date: today.toISOString().slice(0, 10),
+      income: 0,
+      comment: "",
+    })
+    setPastEntries([])
   }
 
   return (
@@ -212,6 +285,10 @@ export default function EntryForm({
       ) : (
         <></>
       )}
+      {pastEntriesList? <>{pastEntriesList}</>:<></>}
+      <div>
+
+      </div>
     </div>
   );
 }
