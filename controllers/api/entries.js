@@ -1,7 +1,7 @@
 const Entry = require("../../models/entry");
 const Dashboard = require("../../models/dashboard");
 
-//get date info
+//get date info for sorting. If refactoring, might remove.
 const date = new Date();
 const nextMonthDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 const currentMonthDate = new Date(date.getFullYear(), date.getMonth(), 0);
@@ -13,27 +13,25 @@ module.exports = {
   getRowIncome,
   getSummary,
   getFilteredEntries,
-  delete:deleteEntry,
+  delete: deleteEntry,
   updateIncome,
   updateCategory,
-  index
+  index,
 };
 
-async function index(req, res){
-  let dashboard = await Dashboard.findById(req.params.id)
-  let entries = await Entry.find({dashboard: dashboard})
-  console.log(entries)
-  res.status(200).json(entries)
+async function index(req, res) {
+  let dashboard = await Dashboard.findById(req.params.id);
+  let entries = await Entry.find({ dashboard: dashboard });
+  res.status(200).json(entries);
 }
 
-function deleteEntry(req,res){
-  Entry.findById(req.params.eId).exec(function(err,entry){
-    entry.remove()
-    Dashboard.findById(req.params.dId).exec(function(err, dashboard){
-      res.status(200).json(dashboard)
-    })
-    
-  })
+function deleteEntry(req, res) {
+  Entry.findById(req.params.eId).exec(function (err, entry) {
+    entry.remove();
+    Dashboard.findById(req.params.dId).exec(function (err, dashboard) {
+      res.status(200).json(dashboard);
+    });
+  });
 }
 
 async function createEntry(req, res) {
@@ -44,6 +42,7 @@ async function createEntry(req, res) {
   res.status(200).json(dashboard);
 }
 
+//icebox: refactor below for dashboard table ------------------------------------------------------------------------
 async function getRowCategory(req, res) {
   //get related dash and related entries to dashId + category type
   let dashboard = await Dashboard.findById(req.params.id);
@@ -71,7 +70,6 @@ async function getRowCategory(req, res) {
     ((currMonthSum - prevMonthSum) * 100) /
     prevMonthSum
   ).toFixed(2);
-
   if (prevMonthSum === 0) {
     perChange = "-";
   }
@@ -80,7 +78,6 @@ async function getRowCategory(req, res) {
     currMonth: currMonthSum.toFixed(2),
     change: perChange,
   };
-
   res.status(200).json(rowData);
 }
 
@@ -129,108 +126,126 @@ async function getSummary(req, res) {
   //get related dash and related entries to dashId
   let dashboard = await Dashboard.findById(req.params.id);
   let entries = await Entry.find({
-    dashboard: dashboard
+    dashboard: dashboard,
   });
   let summaryData = {
     prevMonth: {
       expenseTotal: (0).toFixed(2),
       incomeTotal: (0).toFixed(2),
-      netSavings: 0
+      netSavings: 0,
     },
     currMonth: {
       expenseTotal: (0).toFixed(2),
       incomeTotal: (0).toFixed(2),
-      netSavings: 0
+      netSavings: 0,
     },
   };
 
   //Previous Month Summary
   let prevMonthEntriesIncome = entries.filter(
-    (entry) => entry.date >= prevMonthDate && entry.date < currentMonthDate && entry.income
+    (entry) =>
+      entry.date >= prevMonthDate &&
+      entry.date < currentMonthDate &&
+      entry.income
   );
   let prevMonthEntriesExpense = entries.filter(
-    (entry) => entry.date >= prevMonthDate && entry.date < currentMonthDate && entry.cost
+    (entry) =>
+      entry.date >= prevMonthDate && entry.date < currentMonthDate && entry.cost
   );
 
-  if (prevMonthEntriesIncome.length >0){
-
-    summaryData.prevMonth.incomeTotal= prevMonthEntriesIncome.reduce(function (total, entry) {
-      return total + entry.income;
-    }, 0).toFixed(2);
+  if (prevMonthEntriesIncome.length > 0) {
+    summaryData.prevMonth.incomeTotal = prevMonthEntriesIncome
+      .reduce(function (total, entry) {
+        return total + entry.income;
+      }, 0)
+      .toFixed(2);
   }
-  if (prevMonthEntriesExpense.length >0){
-    summaryData.prevMonth.expenseTotal = prevMonthEntriesExpense.reduce(function (total, entry) {
-      return total + entry.cost;
-    }, 0).toFixed(2);
-    
-  } 
+  if (prevMonthEntriesExpense.length > 0) {
+    summaryData.prevMonth.expenseTotal = prevMonthEntriesExpense
+      .reduce(function (total, entry) {
+        return total + entry.cost;
+      }, 0)
+      .toFixed(2);
+  }
   //Current Month Summary, gotta filter whether income or cost exists in entry.
   let currMonthEntriesIncome = entries.filter(
-    (entry) => entry.date >= currentMonthDate && entry.date < nextMonthDate && entry.income
+    (entry) =>
+      entry.date >= currentMonthDate &&
+      entry.date < nextMonthDate &&
+      entry.income
   );
 
   let currMonthEntriesExpense = entries.filter(
-    (entry) => entry.date >= currentMonthDate && entry.date < nextMonthDate && entry.cost
+    (entry) =>
+      entry.date >= currentMonthDate && entry.date < nextMonthDate && entry.cost
   );
   //calculations.
-  if (currMonthEntriesIncome.length>0){
-    summaryData.currMonth.incomeTotal = currMonthEntriesIncome.reduce(function (total, entry) {
-      return total + entry.income;
-    }, 0).toFixed(2);
+  if (currMonthEntriesIncome.length > 0) {
+    summaryData.currMonth.incomeTotal = currMonthEntriesIncome
+      .reduce(function (total, entry) {
+        return total + entry.income;
+      }, 0)
+      .toFixed(2);
   }
 
-  if (currMonthEntriesExpense.length>0){
-    summaryData.currMonth.expenseTotal  = currMonthEntriesExpense.reduce(function (total, entry) {
-      return total + entry.cost;
-    }, 0).toFixed(2);
+  if (currMonthEntriesExpense.length > 0) {
+    summaryData.currMonth.expenseTotal = currMonthEntriesExpense
+      .reduce(function (total, entry) {
+        return total + entry.cost;
+      }, 0)
+      .toFixed(2);
   }
   //Summary Totals
-  summaryData.currMonth.netSavings = (summaryData.currMonth.incomeTotal  - summaryData.currMonth.expenseTotal).toFixed(2)
-  summaryData.prevMonth.netSavings = (summaryData.prevMonth.incomeTotal  - summaryData.prevMonth.expenseTotal).toFixed(2)
-
+  summaryData.currMonth.netSavings = (
+    summaryData.currMonth.incomeTotal - summaryData.currMonth.expenseTotal
+  ).toFixed(2);
+  summaryData.prevMonth.netSavings = (
+    summaryData.prevMonth.incomeTotal - summaryData.prevMonth.expenseTotal
+  ).toFixed(2);
 
   res.status(200).json(summaryData);
 }
 
-async function getFilteredEntries(req,res){
-
-  let entries = await Entry.find({dashboard:req.params.id})
+async function getFilteredEntries(req, res) {
+  let entries = await Entry.find({ dashboard: req.params.id });
   let filteredEntries;
 
-  if (req.body.income){
-    filteredEntries = entries.filter(entry=> entry.incomeType === req.body.income)
-
-  } else if (req.body.category){
-    filteredEntries = entries.filter(entry=> entry.category === req.body.category)
+  if (req.body.income) {
+    filteredEntries = entries.filter(
+      (entry) => entry.incomeType === req.body.income
+    );
+  } else if (req.body.category) {
+    filteredEntries = entries.filter(
+      (entry) => entry.category === req.body.category
+    );
   }
 
-  res.status(200).json(filteredEntries)
+  res.status(200).json(filteredEntries);
+}
+//------------------------------------------------------------------------
 
+function updateIncome(req, res) {
+  Entry.findById(req.params.eId).exec(function (err, entry) {
+    entry.company = req.body.company;
+    entry.date = new Date(req.body.date);
+    entry.income = req.body.income;
+    entry.incomeType = req.body.incomeType;
+    entry.comment = req.body.comment;
+    entry.save(function (err) {
+      res.status(200).json("income entry successfully updated");
+    });
+  });
 }
 
-
-function updateIncome(req,res){
-  Entry.findById(req.params.eId).exec(function(err, entry){
-    entry.company =req.body.company
-    entry.date = new Date(req.body.date)
-    entry.income = req.body.income
-    entry.incomeType=req.body.incomeType
-    entry.comment = req.body.comment
-    entry.save(function(err){
-      res.status(200).json("income entry successfully updated")
-    })
-  })
-}
-
-function updateCategory(req,res){
-  Entry.findById(req.params.eId).exec(function(err, entry){
-    entry.category =req.body.category
-    entry.company =req.body.company
-    entry.date = new Date(req.body.date)
-    entry.cost = req.body.cost
-    entry.comment = req.body.comment
-    entry.save(function(err){
-      res.status(200).json("income entry successfully updated")
-    })
-  })
+function updateCategory(req, res) {
+  Entry.findById(req.params.eId).exec(function (err, entry) {
+    entry.category = req.body.category;
+    entry.company = req.body.company;
+    entry.date = new Date(req.body.date);
+    entry.cost = req.body.cost;
+    entry.comment = req.body.comment;
+    entry.save(function (err) {
+      res.status(200).json("income entry successfully updated");
+    });
+  });
 }

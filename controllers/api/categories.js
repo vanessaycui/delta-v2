@@ -7,7 +7,6 @@ module.exports = {
     update
 };
 
-
 async function createCategory(req, res){
     let dashboard = await Dashboard.findById(req.params.id)
     dashboard.categories.push(req.body)
@@ -30,10 +29,8 @@ function deleteCategory(req,res){
     })
 }
 
-
 function update(req,res){
     Dashboard.findById(req.params.dId, function(err, dashboard){
-
         dashboard.categories.forEach(category=> {
             if (category.id === req.params.cId){
                 Entry.updateMany({category: category.name, dashboard: dashboard.id}, {$set: {category:req.body.name}}).exec(function(err){
@@ -43,11 +40,8 @@ function update(req,res){
                     })
                 })
             }
-        })
-        
+        })  
     })
-
-
 }
 
 

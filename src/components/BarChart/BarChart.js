@@ -3,8 +3,6 @@ import {Chart as ChartJS} from 'chart.js/auto'
 import "./BarChart.css"
 
 export default function BarChart({chartData}){
-
-
     const options={
         scales: {
           y: {
@@ -19,11 +17,8 @@ export default function BarChart({chartData}){
         }
       }
 
-
     return <div className="BarChart"><Bar
     data={chartData}
     options={options}
-    
-    //aspect ratio, animations for options.
     /></div>
 }

@@ -24,10 +24,8 @@ function deleteIncome(req, res){
                         res.status(200).json("income groupsuccessfully deleted")
                     }) 
                 })
-                
             }
         })
-        
     })
 }
 
@@ -41,9 +39,7 @@ function update(req, res){
                         res.status(200).json("income renamed")
                     }) 
                 })
-                
             }
         })
-        
     })
 }

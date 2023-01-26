@@ -8,7 +8,6 @@ module.exports = {
   show,
   delete: deleteDashboard,
   update,
-
 };
 
 function createDashboard(req, res) {
@@ -18,11 +17,11 @@ function createDashboard(req, res) {
   res.status(200).json(dashboard);
 }
 
-async function index(req, res) {
-  //show all dashboards associated with user.
+async function index(req, res) {//show all dashboards associated with user.
   const dashboards = await Dashboard.find({ admin: req.user._id }).populate(
     "admin"
   );
+
   res.status(200).json(dashboards);
 }
 
@@ -46,12 +45,11 @@ function deleteDashboard(req, res) {
   });
 }
 
-
 async function update(req, res) {
   let dashboard = await Dashboard.findById(req.params.id);
   dashboard.title = req.body.title;
   dashboard.save(async function (err) {
-    let dashboards = await Dashboard.find({ admin: req.user._id })
-    res.status(200).json({dashboard: dashboard, dashboards: dashboards});
+    let dashboards = await Dashboard.find({ admin: req.user._id });
+    res.status(200).json({ dashboard: dashboard, dashboards: dashboards });
   });
 }

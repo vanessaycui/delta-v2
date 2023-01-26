@@ -24,27 +24,24 @@ export default function Dashboard({
   const [showEntryForm, setShowEntryForm] = useState(false);
   const [showPieChart, setShowPieChart]=useState(false)
 
-  useEffect(function () {
-    //get all dashboard and set curr dash
+  useEffect(function () {//side-nav: get all dashboards assoc. w user and set current dashboard
     async function getallDash() {
       const allDash = await dashboardsAPI.getAll(user._id);
       setDashboardList(allDash);
       setCurrentDashboard(allDash[0]);
     }
     getallDash();
-
   }, []);
 
-  function handleChartSwitch(){
+  function handleChartSwitch(){ //dashboard: toggle betwen pie chart and bar chart
     showPieChart? setShowPieChart(false): setShowPieChart(true)
   }
-  function handleLogoClick() {
-    //toggle side navigation
+
+  function handleLogoClick() { //dashboard: toggle side navigation
     showSideNav ? setShowSideNav(false) : setShowSideNav(true);
   }
 
-  function handleDashClick(evt) {
-    //handle dashboard selection
+  function handleDashClick(evt) {//side-nav: handle dashboard selection 
     async function showDashboard() {
       const currDashboard = await dashboardsAPI.getDashboard(evt.target.id);
       setCurrentDashboard(currDashboard);
@@ -54,19 +51,19 @@ export default function Dashboard({
     setShowSideNav(false);
   }
 
-  function handleSettingsClick() {
+  function handleSettingsClick() { //dashboard: settings button
     showDashSettings ? setDashSettings(false) : setDashSettings(true);
     setShowSideNav(false);
     setShowEntryForm(false)
   }
 
-  function handleEntriesClick() {
+  function handleEntriesClick() {//dashboard: entries button
     showEntries ? setShowEntries(false) : setShowEntries(true);
     setShowSideNav(false);
     setShowEntryForm(false)
   }
 
-  function handleBackClick() {
+  function handleBackClick() { //entries: go back to dashboard button
     showEntries ? setShowEntries(false) : setShowEntries(true);
     setShowEntryForm(false)
   }
@@ -82,6 +79,7 @@ export default function Dashboard({
         showDashSettings={showDashSettings}
         name={currentDashboard && currentDashboard.title}
         linkName={"All Entries"}
+        dashboardList={dashboardList}
       />
       <SideNavBar
         user={user}
@@ -91,6 +89,7 @@ export default function Dashboard({
         dashboardList={dashboardList}
         setDashboardList={setDashboardList}
       />
+      {dashboardList.length>0 ?(<>
       {showDashSettings ? (
         <DashSettings
           handleSettingsClick={handleSettingsClick}
@@ -130,6 +129,7 @@ export default function Dashboard({
           )}
         </>
       )}
+      </>):<>You have no dashboards. Create a new one to start.</>}
     </div>
   );
 }

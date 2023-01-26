@@ -28,15 +28,13 @@ export default function AuthPage(props) {
   let coinList;
   if (coinStats.length > 0) {
     coinList = coinStats.map((coin) => (
-      
-        <div>
-          <a href={coin.websiteUrl}>
-            <img src={coin.icon}/>
-          </a>
-          <p>{coin.rank}</p>
-          <p>${coin.price.toFixed(2)}</p>
-        </div>
-      
+      <div>
+        <a href={coin.websiteUrl}>
+          <img src={coin.icon} />
+        </a>
+        <p>{coin.rank}</p>
+        <p>${coin.price.toFixed(2)}</p>
+      </div>
     ));
   }
 
@@ -74,9 +72,7 @@ export default function AuthPage(props) {
           or financial service.
         </p>
         <p>-ChatGPT</p>
-        <div>
-        {coinList}
-        </div>
+        <div>{coinList}</div>
       </div>
     </div>
   );

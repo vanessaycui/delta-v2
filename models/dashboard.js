@@ -37,4 +37,5 @@ var dashboardSchema = new mongoose.Schema({
   timestamps: true
 });
 
+
 module.exports = mongoose.model('Dashboard', dashboardSchema);

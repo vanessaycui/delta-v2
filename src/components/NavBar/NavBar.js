@@ -8,6 +8,7 @@ export default function NavBar({
   showDashSettings,
   name,
   linkName,
+  dashboardList
 }) {
   return (
     <nav className="NavBar">
@@ -20,6 +21,7 @@ export default function NavBar({
             Δ
           </button>
           {name}
+              {dashboardList.length>0? 
 
               <div>
          
@@ -27,6 +29,9 @@ export default function NavBar({
                 <button onClick={handleSettingsClick}>settings</button>
           
               </div>
+              :
+              <></>
+              }
               </>
             )}
           
