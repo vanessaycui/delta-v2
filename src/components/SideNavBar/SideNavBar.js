@@ -26,7 +26,7 @@ export default function SideNavBar({
       onClick={handleDashClick}
       id={dashboard._id}
     >
-      {dashboard.title}
+      {dashboard.title.toUpperCase()}
     </div>
   ));
 
@@ -41,7 +41,7 @@ export default function SideNavBar({
 
   return (
     <nav className="SideNavBar" style={{left: showSideNav? "0px": "-200px"}}>
-       {dashboardList.length>0?  <h3>{user.name}'s Dashboards</h3> : <h3>Create your first dashboard here.</h3>}
+       {dashboardList.length>0?  <h3>{user.name.toUpperCase()}'S DASHBOARDS</h3> : <h3>Create your first dashboard here.</h3>}
       
       <div className="dashboard-container">{populateDashboardList}</div>
      
@@ -56,7 +56,7 @@ export default function SideNavBar({
         </>
       ) : (
         
-        <button className="btn long-btn"onClick={handleShowDashForm}>Create New Dashboard</button>
+        <button className="btn long-btn"onClick={handleShowDashForm}>+ DASHBOARD</button>
         
       )}
       </div>
@@ -65,7 +65,7 @@ export default function SideNavBar({
       <div className="logout-box">
         <Link className="link-color" to="/" onClick={handleLogout}>
           {" "}
-          Logout{" "}
+          LOGOUT{" "}
         </Link>
       </div>
     </nav>

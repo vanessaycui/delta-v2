@@ -30,9 +30,6 @@ export default function DashSettings({currentDashboard, setCurrentDashboard, set
 
     return (
         <>
-        <div>
-            <h1> Dashboard Settings for {currentDashboard.title} </h1>
-        </div>
       <div className="DashSettings">
         
         <div>
@@ -55,7 +52,7 @@ export default function DashSettings({currentDashboard, setCurrentDashboard, set
             ):
             <></>}
             <div></div>
-            <div className="form"><button className="btn" onClick={handleSettingsClick}>Cancel</button></div>
+            <div className="form"><button className="btn-alt" onClick={handleSettingsClick}>Cancel</button></div>
       </div>
       </>
     );

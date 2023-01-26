@@ -7,7 +7,6 @@ export default function NavBar({
   showEntries,
   showDashSettings,
   name,
-  linkName,
   dashboardList,
 }) {
   return (
@@ -16,7 +15,9 @@ export default function NavBar({
         <>
           {showEntries ? (
             <>
-              <button onClick={handleBackClick}>back to dashboard</button>
+
+              <button className="btn-alt"onClick={handleBackClick}>{"<"} DASHBOARD</button>
+              <h1>ALL ENTRIES FOR: <strong style={{color:"var(--darkgreen)"}}>{name? name.toUpperCase():''}</strong></h1>
             </>
           ) : (
             <>
@@ -25,11 +26,11 @@ export default function NavBar({
                   Δ
                 </button>
               </div>
-              <h1>{name}</h1>
+              <h1>{name? name.toUpperCase():""}</h1>
               {dashboardList.length > 0 ? (
                 <div>
-                  <button onClick={handleEntriesClick}>{linkName}</button>
-                  <button onClick={handleSettingsClick}>settings</button>
+                  <button className="btn-alt" onClick={handleEntriesClick}>VIEW ALL ENTRIES</button>
+                  <button className="btn" onClick={handleSettingsClick}>SETTINGS</button>
                 </div>
               ) : (
                 <></>
@@ -38,7 +39,14 @@ export default function NavBar({
           )}
         </>
       ) : (
-        <button className="btn logo">Δ</button>
+        <>
+        <div className="logo-btn-container">
+                <button className="logo-btn">
+                  Δ
+                </button>
+              </div>
+        <h1>SETTINGS FOR: <strong style={{color:"var(--darkgreen)"}}>{name? name.toUpperCase(): ""}</strong></h1>
+      </>
       )}
     </nav>
   );

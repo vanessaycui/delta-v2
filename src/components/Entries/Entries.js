@@ -151,7 +151,6 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
 
   return (
     <>
-      <h1> Entries for {currentDashboard.title} </h1>
       <div className="Entries">
         <div>
           <div className="entry-header">

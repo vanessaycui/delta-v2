@@ -78,7 +78,6 @@ export default function Dashboard({
         showEntries={showEntries}
         showDashSettings={showDashSettings}
         name={currentDashboard && currentDashboard.title}
-        linkName={"All Entries"}
         dashboardList={dashboardList}
       />
       <SideNavBar
