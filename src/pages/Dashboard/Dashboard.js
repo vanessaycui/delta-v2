@@ -22,6 +22,7 @@ export default function Dashboard({
   const [showDashSettings, setDashSettings] = useState(false);
   const [showSideNav, setShowSideNav] = useState(false);
   const [showEntryForm, setShowEntryForm] = useState(false);
+  const [showPieChart, setShowPieChart]=useState(false)
 
   useEffect(function () {
     //get all dashboard and set curr dash
@@ -34,6 +35,9 @@ export default function Dashboard({
 
   }, []);
 
+  function handleChartSwitch(){
+    showPieChart? setShowPieChart(false): setShowPieChart(true)
+  }
   function handleLogoClick() {
     //toggle side navigation
     showSideNav ? setShowSideNav(false) : setShowSideNav(true);
@@ -53,15 +57,18 @@ export default function Dashboard({
   function handleSettingsClick() {
     showDashSettings ? setDashSettings(false) : setDashSettings(true);
     setShowSideNav(false);
+    setShowEntryForm(false)
   }
 
   function handleEntriesClick() {
     showEntries ? setShowEntries(false) : setShowEntries(true);
     setShowSideNav(false);
+    setShowEntryForm(false)
   }
 
   function handleBackClick() {
     showEntries ? setShowEntries(false) : setShowEntries(true);
+    setShowEntryForm(false)
   }
 
   return (
@@ -105,8 +112,9 @@ export default function Dashboard({
                 {Object.keys(currentDashboard).length === 0 ? (
                   <></>
                 ) : (
-                  <DashboardChart currentDashboard={currentDashboard} />
+                  <DashboardChart currentDashboard={currentDashboard} showPieChart={showPieChart} />
                 )}
+                <button onClick={handleChartSwitch}>{showPieChart? "Bar Chart":"Pie Chart"}</button>
               </div>
               {Object.keys(currentDashboard).length === 0 ? (
                 <></>

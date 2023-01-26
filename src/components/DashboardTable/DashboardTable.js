@@ -77,16 +77,20 @@ export default function DashboardTable({
         setError("Create New Category Failed - Try Again");
       }
     }
+    setCatForm(false)
+    setIncomeForm(false)
   }
 
   //toggles cat and income form
   function handleAddCatIncome(evt) {
     if (evt.target.name === "category") {
-      let formstatus = catForm;
-      setCatForm(!formstatus);
-    } else if (evt.target.name === "income") {
-      let formstatus = incomeForm;
+      let formstatus = !catForm;
+      setCatForm(formstatus);
       setIncomeForm(!formstatus);
+    } else if (evt.target.name === "income") {
+      let formstatus = !incomeForm;
+      setIncomeForm(formstatus);
+      setCatForm(!formstatus);
     }
   }
 
@@ -115,6 +119,7 @@ export default function DashboardTable({
               onSubmit={handleSubmit}
             >
               <label>New Category:</label>
+              <br/>
               <input
                 name="category-input"
                 value={catInput.category}
@@ -138,11 +143,12 @@ export default function DashboardTable({
               onSubmit={handleSubmit}
             >
               <label>New Income:</label>
+              <br/>
               <input
                 name="income-input"
                 value={incomeInput.income}
                 onChange={handleChange}
-              ></input>
+              />
               <button type="submit">add</button>
               <button
                 name="income-cancel"
