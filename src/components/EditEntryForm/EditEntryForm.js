@@ -129,7 +129,6 @@ export default function EditEntryForm({
                     <input
                       type="text"
                       name="comment"
-                      required
                       value={editEntry.comment}
                       onChange={handleEntryFormChange}
                     />
@@ -173,7 +172,6 @@ export default function EditEntryForm({
                     <input
                       type="text"
                       name="comment"
-                      required
                       value={editEntry.comment}
                       onChange={handleEntryFormChange}
                     />

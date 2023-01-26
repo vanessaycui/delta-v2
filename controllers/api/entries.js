@@ -227,7 +227,7 @@ function updateCategory(req,res){
     entry.category =req.body.category
     entry.company =req.body.company
     entry.date = new Date(req.body.date)
-    entry.cost = req.body.income
+    entry.cost = req.body.cost
     entry.comment = req.body.comment
     entry.save(function(err){
       res.status(200).json("income entry successfully updated")

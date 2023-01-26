@@ -54,6 +54,8 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
     //switches income and category type
     setEntryType(evt.target.name);
     setShowEditForms(false);
+    setEntryList([])
+    setEntryGroup("")
   }
 
   async function handleEntryGroupSelection(groupName) {

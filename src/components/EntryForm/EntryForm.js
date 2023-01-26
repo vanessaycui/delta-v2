@@ -13,9 +13,8 @@ export default function EntryForm({
   //can draw category info later
   const today = new Date();
 
-
   const [newCategoryEntry, setNewCategoryEntry] = useState({
-    category:"",
+    category: "",
     company: "",
     date: today.toISOString().slice(0, 10),
     cost: 0,
@@ -23,7 +22,7 @@ export default function EntryForm({
   });
 
   const [newIncomeEntry, setNewIncomeEntry] = useState({
-    incomeType:"",
+    incomeType: "",
     company: "",
     date: today.toISOString().slice(0, 10),
     income: 0,
@@ -31,22 +30,17 @@ export default function EntryForm({
   });
   const [error, setError] = useState("");
 
-  //generate select options if there are categories or incomes
-
-  
   let categoriesList = currentDashboard.categories.map((category, idx) => (
     <option key={idx} value={category.name}>
       {category.name}
     </option>
   ));
-  
 
   let incomesList = currentDashboard.incomes.map((income, idx) => (
-    <option key={idx} value={income.incomeType} >
+    <option key={idx} value={income.incomeType}>
       {income.incomeType}
     </option>
   ));
-  
 
   function handleCatChange(evt) {
     setNewCategoryEntry({
@@ -56,8 +50,12 @@ export default function EntryForm({
   }
 
   function handleIncomeChange(evt) {
-    setNewIncomeEntry({ ...newIncomeEntry, [evt.target.name]: evt.target.value });
+    setNewIncomeEntry({
+      ...newIncomeEntry,
+      [evt.target.name]: evt.target.value,
+    });
   }
+
   async function handleEntrySubmit(evt) {
     evt.preventDefault();
     if (evt.target.name === "income") {
@@ -108,7 +106,7 @@ export default function EntryForm({
                 required
               >
                 <option value="">----</option>
-                {categoriesList? categoriesList: <></>}
+                {categoriesList ? categoriesList : <></>}
               </select>
               <label>Company</label>
               <input
@@ -164,7 +162,7 @@ export default function EntryForm({
                 required
               >
                 <option value="">----</option>
-                {incomesList? incomesList: <></>}
+                {incomesList ? incomesList : <></>}
               </select>
               <label>Company</label>
               <input

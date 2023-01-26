@@ -23,8 +23,6 @@ export default function Dashboard({
   const [showSideNav, setShowSideNav] = useState(false);
   const [showEntryForm, setShowEntryForm] = useState(false);
 
-
-
   useEffect(function () {
     //get all dashboard and set curr dash
     async function getallDash() {
