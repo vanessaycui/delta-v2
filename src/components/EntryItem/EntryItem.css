@@ -1,0 +1,55 @@
+.entry-box table{
+    text-align: left;
+    padding: 0;
+    background-color: transparent;
+}
+
+
+.entry-box{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border: 1px solid var(--grey);
+    margin: 2px 0;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: var(--lightestblue);
+    transition: 0.3s;
+}
+
+.entry-box p{
+    margin:3px;
+    font-size: 12px;
+}
+
+.entry-box:hover{
+    background-color: var(--lightblue);
+    transition: 0.3s;
+}
+.identifiers{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 5px 30px 0 20px;
+    font-weight: bold;
+    width: 25%;
+
+}
+.info{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    width: 50%;
+}
+
+.entry-box-buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    width: 25%;
+}
+

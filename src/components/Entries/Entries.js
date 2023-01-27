@@ -54,8 +54,8 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
     //switches income and category type
     setEntryType(evt.target.name);
     setShowEditForms(false);
-    setEntryList([])
-    setEntryGroup("")
+    setEntryList([]);
+    setEntryGroup("");
   }
 
   async function handleEntryGroupSelection(groupName) {
@@ -89,28 +89,26 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
 
   //handle updating UI after renaming income/category group, editing entry data
   async function handleEntryUpdate(type) {
-    if (type === "income"){
+    if (type === "income") {
       let currentDash = await dashboardsAPI.getDashboard(currentDashboard._id);
       setCurrentDashboard(currentDash);
-    //reset
-    setEntryList([]);
-    setEntryGroup("");
-
-    } else if (type==="category"){
+      //reset
+      setEntryList([]);
+      setEntryGroup("");
+    } else if (type === "category") {
       let currentDash = await dashboardsAPI.getDashboard(currentDashboard._id);
       setCurrentDashboard(currentDash);
-    //reset
-    setEntryList([]);
-    setEntryGroup("");
-    } else if (type==="entry-income"){
+      //reset
+      setEntryList([]);
+      setEntryGroup("");
+    } else if (type === "entry-income") {
       //required to get filtered entries again
       let filteredEntries = await entriesAPI.getFilteredEntries(
         currentDashboard._id,
         { [entryType]: entryGroup }
       );
       setEntryList(filteredEntries);
-
-    }else if (type ==="entry-category"){
+    } else if (type === "entry-category") {
       //required to get filtered entries again
       let filteredEntries = await entriesAPI.getFilteredEntries(
         currentDashboard._id,
@@ -118,8 +116,7 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
       );
       setEntryList(filteredEntries);
     }
-    setShowEditForms(false)
-
+    setShowEditForms(false);
   }
 
   async function handleDeletedEntry(entryId) {
@@ -152,9 +149,9 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
   return (
     <>
       <div className="Entries">
-        <div>
+        <div className="entry-column-group">
           <div className="entry-header">
-            <h1>{entryType}</h1>
+            <h1>{entryType.toUpperCase()}</h1>
             <div>
               <button className="btn" name="income" onClick={handleClick}>
                 Income
@@ -166,12 +163,13 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
           </div>
           <div className="income-cat-list">{entryGroups}</div>
         </div>
-        <div>
+        <div className="entry-column-center">
           <div className="entry-header">
             {entryGroup ? (
               <>
-                <h2>{entryGroup}</h2>
+                <h1>ENTRIES FOR: <em style={{color: "var(--orange)"}}>{entryGroup.toUpperCase()}</em></h1>
                 <button
+                  className="btn"
                   onClick={() => {
                     handleEntryEdit(entryType, entryGroupData);
                   }}
@@ -183,20 +181,22 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
               <></>
             )}
           </div>
-          <div className="entry-section">
+          <div className="entry-item-container">
             {displayedEntries.length > 0 ? (
               displayedEntries
             ) : (
               <>
-              {entryGroup? 
-                <p>No Entries</p>:
-                <p>No Entry Group Selected</p>}
+                {entryGroup ? (
+                  <p>No Entries</p>
+                ) : (
+                  <p>No Entry Group Selected</p>
+                )}
               </>
             )}
           </div>
         </div>
-        <div className="form-section">
-          <div className="entry-header">Forms</div>
+        <div className="entry-column-form">
+          <div className="entry-header"></div>
           <div>
             {showEditForms ? (
               <EditEntryForm

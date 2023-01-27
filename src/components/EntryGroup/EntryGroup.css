@@ -8,12 +8,12 @@
     border-radius: 5px;
     margin: 5px 5px;
     transition: 0.3s;
+    border: 1px solid var(--grey);
 
 }
 
 .EntryGroup:hover{
     cursor: pointer;
-    border: none;
     background-color: var(--darkgreen);
     transition: 0.3s;
     color: var(--app-background-color);

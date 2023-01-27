@@ -1,7 +1,10 @@
 .Entries{
     display: flex;
+    justify-content: flex-start;
     margin: 0 auto;
     width: 90vw;    
+    max-height: 90vh;
+    overflow: hidden;
 }
 
 .income-cat-list{
@@ -19,17 +22,23 @@
     padding: 5px;
 }
 
-.entry-section{
-    width: 50vw;
-    overflow-y: scroll;
-
-}
 
 .form-section{
     min-width: 20vw;
 }
 
-.entry-box{
-    padding: 5px;
-    border: 2px solid red;
+.entry-column-center{
+    min-width: 600px;
+    
+
+}
+.entry-column-group{
+    min-width: 200px;
+}
+.entry-column-form{
+    min-width: 300px;
+}
+.entry-item-container{
+    height: 60vh;
+    overflow-y: scroll;
 }

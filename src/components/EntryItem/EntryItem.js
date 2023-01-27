@@ -9,40 +9,27 @@ export default function EntryItem({ handleDeletedEntry, entryType, entry, handle
 
   return (
     <div className="entry-box">
-        <table>
-            <tbody>
-          <tr>
-            {entryType ==="income"?
-              <>
-                <td>income:</td>
-                <td>${entry.income? entry.income.toFixed(2): 0}</td>
-              </>
-              :
-              <>
-                <td>cost:</td>
-                <td>${entry.cost? entry.cost.toFixed(2):0}</td>
-              </>
-            }
-            </tr>
-            <tr>
-              <td>date:</td>
-              <td>{entry.date.slice(0, 10)}</td>
-            </tr>
-            <tr>
-              <td>company:</td>
-              <td>{entry.company}</td>
-            </tr>
-            <tr>
-              <td>comment:</td>
-              <td>{entry.comment}</td>
-            </tr>
-            </tbody>
-          </table>
+
+        <div className="identifiers">
+        <p>{entryType ==="income"?"Income:":"Cost:"}</p>
+        <p>Date:</p>
+        <p>Company:</p>
+        <p>Comment:</p>
+        </div>
+        <div className="info">
+        <p>{entryType ==="income"?entry.income? entry.income.toFixed(2): 0:entry.cost? entry.cost.toFixed(2):0}</p>
+        <p>{entry.date.slice(0, 10)}</p>
+        <p>{entry.company}</p>
+        <p>{entry.comment}</p>
+        </div>
+        
+        <div className="entry-box-buttons">
           {showEditForms?<></>:<>
-          <button onClick={()=>{handleEntryEdit(`entry-${entryType}`, entry)}}> edit </button> 
+          <button className="btn" onClick={()=>{handleEntryEdit(`entry-${entryType}`, entry)}}> edit </button> 
           
-          <button onClick={()=>{handleDeletedEntry(entry._id)}}>delete</button>
+          <button className="btn" onClick={()=>{handleDeletedEntry(entry._id)}}>delete</button>
           </>}
+        </div>
 
     </div>
   )

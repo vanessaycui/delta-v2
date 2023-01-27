@@ -63,34 +63,43 @@ export default function EditEntryForm({
   return (
     <div>
       {/* edit income and category entry group name  */}
+      
       {editItemData.type === "income" ? (
         <>
+        <h1>RENAME</h1>
           <form name="income" onSubmit={handleGroupFormSubmit}>
             <label>Edit Income Group Name</label>
             <br />
             <input
+             className="input-space"
               name="incomeType"
               value={groupForm.incomeType}
               onChange={handleGroupFormChange}
               required
             />
-            <button type="submit">Rename</button>
+            <br/>
+            <button className="btn" type="submit">Rename</button>
+            <button className="btn" onClick={() => setShowEditForms(false)}>Cancel</button>
           </form>
         </>
       ) : (
         <>
           {editItemData.type === "category" ? (
             <>
+            <h1>RENAME</h1>
               <form name="category" onSubmit={handleGroupFormSubmit}>
                 <label>Edit Category Group Name</label>
                 <br />
                 <input
+                  className="input-space"
                   name="name"
                   value={groupForm.name}
                   onChange={handleGroupFormChange}
                   required
                 />
-                <button type="submit">Rename</button>
+                <br/>
+                <button className="btn" type="submit">Rename</button>
+                <button className="btn" onClick={() => setShowEditForms(false)}>Cancel</button>
               </form>
             </>
           ) : (
@@ -98,9 +107,12 @@ export default function EditEntryForm({
             <>
               {editItemData.type === "entry-income" ? (
                 <>
+                <h1>EDIT ENTRY</h1>
                   <form name="income" onSubmit={handleEntryFormSubmit}>
                     <label>Company:</label>
+                    <br/>
                     <input
+                    className="input-space"
                       name="company"
                       required
                       value={editEntry.company}
@@ -108,7 +120,9 @@ export default function EditEntryForm({
                     />
                     <br />
                     <label>date:</label>
+                    <br/>
                     <input
+                    className="input-space"
                       type="date"
                       name="date"
                       required
@@ -117,8 +131,10 @@ export default function EditEntryForm({
                     />
                     <br />
                     
-                    <label>income: $</label>
+                    <label>income:</label>
+                    <br/>
                     <input
+                    className="input-space"
                       type="number"
                       name="income"
                       required
@@ -127,23 +143,29 @@ export default function EditEntryForm({
                     />
                     <br />
                     <label>comment</label>
+                    <br/>
                     <input
+                    className="input-space"
                       type="text"
                       name="comment"
                       value={editEntry.comment}
                       onChange={handleEntryFormChange}
                     />
                     <br />
-                    <button type="submit">Edit</button>
+                    <button className="btn" type="submit">Edit</button>
+                    <button className="btn" onClick={() => setShowEditForms(false)}>Cancel</button>
                   </form>
                 </>
               ) : (
                 <>
                   {editItemData.type === "entry-category" ? (
                     <>
+                    <h1>EDIT ENTRY</h1>
                     <form name="category" onSubmit={handleEntryFormSubmit}>
                     <label>Company:</label>
+                    <br/>
                     <input
+                    className="input-space"
                       name="company"
                       required
                       value={editEntry.company}
@@ -151,6 +173,7 @@ export default function EditEntryForm({
                     />
                     <br />
                     <label>date:</label>
+                    <br/>
                     <input
                       type="date"
                       name="date"
@@ -159,8 +182,10 @@ export default function EditEntryForm({
                       onChange={handleEntryFormChange}
                     />
                     <br />
-                    <label>cost: $</label>
+                    <label>cost:</label>
+                    <br/>
                     <input
+                    className="input-space"
                       type="number"
                       name="cost"
                       required
@@ -170,14 +195,17 @@ export default function EditEntryForm({
                     <br />
                   
                     <label>comment</label>
+                    <br/>
                     <input
+                    className="input-space"
                       type="text"
                       name="comment"
                       value={editEntry.comment}
                       onChange={handleEntryFormChange}
                     />
                     <br />
-                    <button type="submit">Edit</button>
+                    <button className="btn" type="submit">Edit</button>
+                    <button className="btn" onClick={() => setShowEditForms(false)}>Cancel</button>
                   </form>
                   </>
                   ) : (
@@ -190,7 +218,7 @@ export default function EditEntryForm({
         </>
       )}
 
-      <button onClick={() => setShowEditForms(false)}>Cancel</button>
+      
 
     </div>
   );
