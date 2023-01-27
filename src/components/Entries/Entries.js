@@ -154,10 +154,10 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
             <h1>{entryType.toUpperCase()}</h1>
             <div>
               <button className="btn" name="income" onClick={handleClick}>
-                Income
+                INCOME
               </button>
               <button className="btn" name="category" onClick={handleClick}>
-                Category
+                CATEGORY
               </button>
             </div>
           </div>
@@ -174,7 +174,7 @@ export default function Entries({ currentDashboard, setCurrentDashboard }) {
                     handleEntryEdit(entryType, entryGroupData);
                   }}
                 >
-                  rename
+                  RENAME
                 </button>
               </>
             ) : (

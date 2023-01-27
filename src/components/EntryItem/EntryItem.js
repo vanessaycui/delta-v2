@@ -25,9 +25,9 @@ export default function EntryItem({ handleDeletedEntry, entryType, entry, handle
         
         <div className="entry-box-buttons">
           {showEditForms?<></>:<>
-          <button className="btn" onClick={()=>{handleEntryEdit(`entry-${entryType}`, entry)}}> edit </button> 
+          <button className="btn" onClick={()=>{handleEntryEdit(`entry-${entryType}`, entry)}}> EDIT</button> 
           
-          <button className="btn" onClick={()=>{handleDeletedEntry(entry._id)}}>delete</button>
+          <button className="btn" onClick={()=>{handleDeletedEntry(entry._id)}}>DELETE</button>
           </>}
         </div>
 

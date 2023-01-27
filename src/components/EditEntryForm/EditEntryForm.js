@@ -78,8 +78,8 @@ export default function EditEntryForm({
               required
             />
             <br/>
-            <button className="btn" type="submit">Rename</button>
-            <button className="btn" onClick={() => setShowEditForms(false)}>Cancel</button>
+            <button className="btn" type="submit">RENAME</button>
+            <button className="btn" onClick={() => setShowEditForms(false)}>CANCEL</button>
           </form>
         </>
       ) : (
@@ -98,8 +98,8 @@ export default function EditEntryForm({
                   required
                 />
                 <br/>
-                <button className="btn" type="submit">Rename</button>
-                <button className="btn" onClick={() => setShowEditForms(false)}>Cancel</button>
+                <button className="btn" type="submit">RENAME</button>
+                <button className="btn" onClick={() => setShowEditForms(false)}>CANCEL</button>
               </form>
             </>
           ) : (
@@ -152,8 +152,8 @@ export default function EditEntryForm({
                       onChange={handleEntryFormChange}
                     />
                     <br />
-                    <button className="btn" type="submit">Edit</button>
-                    <button className="btn" onClick={() => setShowEditForms(false)}>Cancel</button>
+                    <button className="btn" type="submit">EDIT</button>
+                    <button className="btn" onClick={() => setShowEditForms(false)}>CANCEL</button>
                   </form>
                 </>
               ) : (
@@ -204,8 +204,8 @@ export default function EditEntryForm({
                       onChange={handleEntryFormChange}
                     />
                     <br />
-                    <button className="btn" type="submit">Edit</button>
-                    <button className="btn" onClick={() => setShowEditForms(false)}>Cancel</button>
+                    <button className="btn" type="submit">EDIT</button>
+                    <button className="btn" onClick={() => setShowEditForms(false)}>CANCEL</button>
                   </form>
                   </>
                   ) : (
