@@ -1,20 +1,20 @@
 table {
-  min-width: 600px;
+  min-width: 700px;
   margin: 0 auto;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   background-color: var(--lightestblue);
   padding: 10px;
   border-radius: 5px;
 }
 
 .DashboardTable{
- min-height: 300px;
+ min-height: 500px;
 
 }
 .cat-income-list td{
   text-align: left;
   padding: 0 0 0 10px;
-  height: 20px;
+  height: 25px;
 }
 
 .cat-income-list td:hover{
