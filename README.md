@@ -12,7 +12,7 @@ This application includes the following features:
 * User can quickly view Crypto coin stats at the login page
 
 ## **SPECIAL CONDITIONS** 
-* Budget App is optimized to be used on a chrome browser on a full screen. 
+* Delta Finace App is optimized to be used on a chrome browser on a full screen. 
 
 ***Look out for a mobile-friendly version of this application in the near future!***
 
@@ -54,7 +54,7 @@ Edit, update, delete any of your past entries.
 
 
 This app is deployed on Heroku! 
-Please click on the link below to access the budget app:
+Please click on the link below to access the application:
 
 <button style="padding: 20px; font-size: 30px; border-radius: 10px; background-color: #8EC3B0; border: none;" ><strong><a style="color: white; text-decoration: none;" href="https://delta-app.herokuapp.com/">DELTΔ FINANCE APP</a></strong></button>
 
