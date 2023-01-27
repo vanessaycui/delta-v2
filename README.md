@@ -1,70 +1,79 @@
-# Getting Started with Create React App
+# **DELTA APP**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Setting financial budgets and making smart financial decisions is hard when you don't know what your personal spending habits are like. Budget app will help with keeping track of your personal finances so you can be one step closer to achieving financial independence. 
 
-## Available Scripts
+This application includes the following features:
+* Logging in with JWT to access their personal dashboard/tracker
+* User can create, read, update, and delete their dashboards
+* User can create, read, update, and delete categories/incomes on their dashboards
+* User can create, read, update, and delete entries 
+* Dashboard will show user 5 most recent entries associated with the category while they are adding a new entry
+* User can view their financial transaction in a form of a bar chart or pie chart
+* User can quickly view Crypto coin stats at the login page
 
-In the project directory, you can run:
+## **SPECIAL CONDITIONS** 
+* Budget App is optimized to be used on a chrome browser on a full screen. 
 
-### `npm start`
+***Look out for a mobile-friendly version of this application in the near future!***
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<hr>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## **SCREENSHOTS**
 
-### `npm test`
+<div style="display:flex; flex-wrap:wrap; column;gap:10px; width: 800px;">
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<img style="flex: 0 0 50%; height: 300px;" src="https://media.giphy.com/media/4JZUCI8sUFrDzWqF4g/giphy.gif">
 
-### `npm run build`
+<img style="flex: 0 0 50%; height: 300px;" src="https://media.giphy.com/media/IhnSEQxMZD3L3rs7kZ/giphy.gif">
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<img style="flex: 0 0 50%; height: 300px;" src="https://media.giphy.com/media/HHF4wXA0wX0p97nHhZ/giphy.gif">
+<img style="flex: 0 0 50%; height: 300px;" src="https://media.giphy.com/media/qPALVGD2MNg1dPkKvN/giphy.gif">
+</div>
+Login and start by creating a new dashboard. Add expense categories and income sources onto your dashboard. Start adding entries.
+Edit, update, delete any of your past entries. 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<strong>Like the GIFs? Create your own at <a href="https://giphy.com/">giphy.com</a></strong>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<hr>
 
-### `npm run eject`
+## **TECHNOLOGIES**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+* HTML
+* CSS
+* JavaScript
+* Node.js
+* Express.js
+* React.js
+* Chart.js
+* Coinstats API
+* Mongoose
+* MongoDB, MongoDB Atlas, MongoDB Compass
+* Heroku
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<hr>
+<h2><strong>GETTING STARTED</strong></h2>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+This app is deployed on Heroku! 
+Please click on the link below to access the budget app:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<button style="padding: 20px; font-size: 30px; border-radius: 10px; background-color: #8EC3B0; border: none;" ><strong><a style="color: white; text-decoration: none;" href="https://delta-app.herokuapp.com/">DELTΔ FINANCE APP</a></strong></button>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Please see my trello board for planned features, updates, and fixes:
 
-### Code Splitting
+<button style="padding: 20px; font-size: 30px; border-radius: 10px; background-color: #8EC3B0; border: none;" ><strong><a style="color: white; text-decoration: none;" href="https://trello.com/b/6wr2p3W7/project-4-%CE%B4-delta-finance-app">TRELLO</a></strong></button>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<hr>
 
-### Analyzing the Bundle Size
+## **NEXT STEPS**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+The following enhancements are some exciting features I will be implementing in the near future:
+* Additional graphs to draw more insight on your spending habits
+* Graphs showing projections based on your current spending habits
+* Exporting your entries 
+* Creating a mobile-friendly version (web or app)
+* Adding Plaid API for users to access transactional data from their bank account
+For more details on next steps, please take a look at my trello board linked above! 
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<hr>
