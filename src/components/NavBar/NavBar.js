@@ -34,7 +34,7 @@ export default function NavBar({
               </div>
               <h1>{name ? name.toUpperCase() : ""}</h1>
               {dashboardList.length > 0 ? (
-                <div>
+                <div className="nav-button-container">
                   <button className="btn-alt" onClick={handleEntriesClick}>
                     ALL ENTRIES
                   </button>
