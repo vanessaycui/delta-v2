@@ -229,10 +229,10 @@ export default function EntryForm({
               <br/>
 
               <button className="btn" type="submit">
-                Done
+                DONE
               </button>
               <button className="btn" onClick={handleCancel}>
-                cancel
+                CANCEL
               </button>
               <p className="error-message">&nbsp;{error}</p>
             </form>
@@ -295,10 +295,10 @@ export default function EntryForm({
 
 
               <button className="btn" type="submit">
-                Done
+                DONE
               </button>
               <button className="btn" onClick={handleCancel}>
-                cancel
+                CANCEL
               </button>
               <p className="error-message">&nbsp;{error}</p>
             </form>
