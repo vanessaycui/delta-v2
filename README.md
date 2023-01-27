@@ -1,4 +1,4 @@
-# **DELTA APP**
+# **DELTΔ FINANCE APP**
 
 Setting financial budgets and making smart financial decisions is hard when you don't know what your personal spending habits are like. Budget app will help with keeping track of your personal finances so you can be one step closer to achieving financial independence. 
 
