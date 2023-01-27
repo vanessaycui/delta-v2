@@ -22,12 +22,12 @@ This application includes the following features:
 
 <div style="display:flex; flex-wrap:wrap; column;gap:10px; width: 800px;">
 
-<img style="flex: 0 0 50%; height: 300px;" src="https://media.giphy.com/media/4JZUCI8sUFrDzWqF4g/giphy.gif">
+<img style="flex: 0 0 50%; height: 300px;" src="https://media.giphy.com/media/6da1al4BiqGRXveLez/giphy.gif">
 
-<img style="flex: 0 0 50%; height: 300px;" src="https://media.giphy.com/media/IhnSEQxMZD3L3rs7kZ/giphy.gif">
+<img style="flex: 0 0 50%; height: 300px;" src="https://media.giphy.com/media/k05l5LIswiarmgLIi4/giphy.gif">
 
-<img style="flex: 0 0 50%; height: 300px;" src="https://media.giphy.com/media/HHF4wXA0wX0p97nHhZ/giphy.gif">
-<img style="flex: 0 0 50%; height: 300px;" src="https://media.giphy.com/media/qPALVGD2MNg1dPkKvN/giphy.gif">
+<img style="flex: 0 0 50%; height: 300px;" src="https://media.giphy.com/media/SJthoPM4KCAwakgV8o/giphy.gif">
+<img style="flex: 0 0 50%; height: 300px;" src="https://media.giphy.com/media/lzNv8sbjvMbTaK0dET/giphy.gif">
 </div>
 Login and start by creating a new dashboard. Add expense categories and income sources onto your dashboard. Start adding entries.
 Edit, update, delete any of your past entries. 
