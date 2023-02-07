@@ -1,4 +1,4 @@
-# **DELTΔ FINANCE APP**
+# **DELTΔ FINANCE APP - v2**
 
 Setting financial budgets and making smart financial decisions is hard when you don't know what your personal spending habits are like. Budget app will help with keeping track of your personal finances so you can be one step closer to achieving financial independence. 
 
@@ -18,7 +18,7 @@ This application includes the following features:
 
 <hr>
 
-## **SCREENSHOTS**
+<!-- ## **SCREENSHOTS**
 
 <div >
 <img src="https://media.giphy.com/media/lzNv8sbjvMbTaK0dET/giphy.gif">
@@ -32,7 +32,7 @@ Edit, update, delete any of your past entries.
 
 <strong>Like the GIFs? Create your own at <a href="https://giphy.com/">giphy.com</a></strong>
 
-<hr>
+<hr> -->
 
 ## **TECHNOLOGIES**
 
